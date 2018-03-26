@@ -14,11 +14,22 @@ description: base template for flask app
   <title>{{ title }}</title>
 
   <!-- bootstrap css -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  <meta charset="utf-8">
+  <meta name="description" content="Meet Me">
+  <meta name="author" content="Angelina Li">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{{ title }}</title>
+
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- custom js -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-sm navbar-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('index') }}">Meet Me</a>
       
@@ -30,6 +41,9 @@ description: base template for flask app
         <ul class="nav mr-auto nav-fill">
           <li class="nav-item">
             <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
           </li>
         </ul>
 
@@ -44,8 +58,8 @@ description: base template for flask app
   </nav>
 
   <div class="container">
-    <h1 class="display-4">{{ title }}</h1>
-
+    {% block page_title %}{% endblock %}
+    
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class="list-group">
@@ -60,17 +74,15 @@ description: base template for flask app
     {% block content %}{% endblock %}
   </div>
 
-  <footer class="page-footer font-small blue pt-4 mt-4">
-    <div class="footer-copyright py-3 text-center">
-      Copyright Angelina Li 2018. Source: <a href="https://github.com/angelinahli/meet-me2/">Github</a>
+  <footer class="footer">
+    <div class="container text-muted text-center">
+      Copyright © Angelina Li 2018. <a href="https://github.com/angelinahli/meet-me2/">Source code</a>
     </div>
   </footer>
 
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   {% block js %}{% endblock %}
 </body>
 </html>
