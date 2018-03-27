@@ -13,10 +13,12 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Write out your uml diagram - users, schedules, events.
 * Create responsive navbar
 * Make the search bar look nicer
+* Create test dataset of users
 
 ## backlog
 * make search bar width expand to fill page
 * Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
+* Load in and load out user dataset
 * Create a test database of users
 * Create user profile pages
 * Create user settings pages - update user information, change password, change email, delete account
