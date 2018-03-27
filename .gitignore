@@ -1,4 +1,8 @@
-venv/*
+# cache files
 __pycache__/*
 */__pycache__/*
 *.pyc
+
+# db files
+app.db
+migrations/*
