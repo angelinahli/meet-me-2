@@ -5,24 +5,24 @@
 {% endblock %}
 
 {% block content %}
-<div class="card mx-auto bg-light" style="width: 80%;">
+<div class="card mx-auto" style="width: 80%;">
   <div class="card-body">
     <form method="POST" action="" id="sign-up">
       {{ form.hidden_tag() }}
 
-      <div class="form-row">
+      <div class="form-row text-left">
         <div class="form-group col-md-6">
           <label for="fname">{{ form.first_name.label }}</label>
           <p>{{ form.first_name(id="fname", class_="form-control", placeholder="Wendy") }}</p>
           {% for m in form.first_name.errors %}
-            <small class="text-error form-text text-muted">{{ m }}</small>
+            <p class="text-error form-text">{{ m }}</p>
           {% endfor %}
         </div>
         <div class="form-group col-md-6">
           <label for="lname">{{ form.last_name.label }}</label>
           <p>{{ form.last_name(id="lname", class_="form-control", placeholder="Wellesley") }}</p>
           {% for m in form.last_name.errors %}
-            <small class="text-error form-text text-muted">{{ m }}</small>
+            <p class="text-error form-text">{{ m }}</p>
           {% endfor %}
         </div>
       </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="form-group">
         {% for m in form.email.errors %}
-          <small class="text-error form-text text-muted">{{ m }}</small>
+          <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
       </div>
 
@@ -45,10 +45,10 @@
         </div>
         {{ form.username(id="username", class_="form-control", aria_label="username", aria_describedby=username, placeholder="username") }}
       </div>
-      <small class="form-text text-muted">Your username needs to be between {{ info['username']['min'] }} and {{ info['username']['max'] }} characters long.</small>
+      <small class="form-text text-muted">Some validation text.</small>
       <div class="form-group">
         {% for m in form.username.errors %}
-          <small class="text-error form-text text-muted">{{ m }}</small>
+          <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
       </div>
 
@@ -58,10 +58,10 @@
         </div>
         {{ form.password(id="password", class_="form-control", aria_label="password", aria_describedby=password, placeholder="password") }}
       </div>
-      <small class="form-text text-muted">Your password needs to be between {{ info['password']['min'] }} and {{ info['password']['max'] }} characters long.</small>
+      <small class="form-text text-muted">Some validation text.</small>
       <div class="form-group">
         {% for m in form.password.errors %}
-          <small class="text-error form-text text-muted">{{ m }}</small>
+          <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
       </div>
 
@@ -73,7 +73,7 @@
       </div>
       <div class="form-group">
         {% for m in form.confirm.errors %}
-          <small class="text-error form-text text-muted">{{ m }}</small>
+          <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
       </div>
 

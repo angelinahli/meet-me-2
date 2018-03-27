@@ -7,10 +7,13 @@ This is an [extension](https://github.com/angelinahli/meet-me) of a project crea
 I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)'s excellent introduction to the Flask framework.
 
 ## backlog
+* Create better way of managing username and password validation
 * Create a test database of users
-* Write out your uml diagram - users, schedules, events.
-* Learn how to properly manage user sessions and implement that
-* (at this point) Have the app running such that you can log in, and see users
 * Create a search feature to search for users
 * Maybe research how to make your code more modular and easy to change
 * (at this point after integrating the concept of users) research potential methods possible to have scheduling data. maybe work first on ability to modify your schedule from scratch (create "templates"?) at this point put on your designer hat and think about what makes the most sense here from a design perspective.
+
+## done
+* Learn how to properly manage user sessions and implement that
+* Have the app running such that you can log in, and see users
+* Write out your uml diagram - users, schedules, events.

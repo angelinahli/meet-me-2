@@ -5,8 +5,6 @@ from app import app
 from app.forms import LoginForm, SignUpForm
 from app.models import User, Event
 
-from program_info import info
-
 @app.route("/")
 @app.route("/index/")
 def index():
@@ -37,12 +35,21 @@ def login():
             return redirect(url_for("index"))
     return render_template("login.html", **dct)
 
+@app.route("/signup/", methods=["GET", "POST"])
+def signup():
+    dct = {"title": "Sign Up"}
+    if current_user.is_authenticated:
+        # if you're accidentally routed to the sign up page
+        return redirect(url_for("index"))
+    form = SignUpForm()
+    dct["form"] = form
+    if form.validate_on_submit():
+        username = form.username.data
+        password = form.password.data
+        user = User.query.filter_by(username=username).first()
+    return render_template("sign_up.html", **dct)
+
 @app.route("/logout/")
 def logout():
     logout_user()
     return redirect(url_for("index"))
-
-@app.route("/signup/", methods=["GET", "POST"])
-def signup():
-    form = SignUpForm()
-    return render_template("sign_up.html", title="Sign Up", form=form, info=info)
