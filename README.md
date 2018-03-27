@@ -6,14 +6,30 @@ This is an [extension](https://github.com/angelinahli/meet-me) of a project crea
 
 I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)'s excellent introduction to the Flask framework.
 
-## backlog
-* Create better way of managing username and password validation
-* Create a test database of users
-* Create a search feature to search for users
-* Maybe research how to make your code more modular and easy to change
-* (at this point after integrating the concept of users) research potential methods possible to have scheduling data. maybe work first on ability to modify your schedule from scratch (create "templates"?) at this point put on your designer hat and think about what makes the most sense here from a design perspective.
-
 ## done
 * Learn how to properly manage user sessions and implement that
-* Have the app running such that you can log in, and see users
+    * added login and sign up pages
+* Have the app running such that you can log in and logout
 * Write out your uml diagram - users, schedules, events.
+* Create responsive navbar
+
+## backlog
+* Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
+* Create a test database of users
+* Create user profile pages
+* Create user settings pages - update user information, change password, change email, delete account
+* Create a search feature to search for users by username, first name, last name, email
+    * if match one person, return that person
+    * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
+    * create pages of search results
+    * consider placing the search bar in the navbar instead (kind of odd looking right now)
+* Create a schedule page where people can view a representation of their schedule
+* Allow users to update their schedule with different events
+* research potential methods possible to have scheduling data.
+    * work first on ability to modify your schedule from scratch (create "templates"?)
+* rethink algorithm on finding matching free times - probably a better one out there
+* create form allowing users to set up events with each other
+* Maybe research how to make your code more modular and easy to change
+* (Eventually) update the front page to make it look nicer
+* (Eventually) update all the graphics to look better
+* (Eventually) update the spaces between input fields in the login form to make everything look more standardized
