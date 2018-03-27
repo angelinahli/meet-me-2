@@ -16,10 +16,14 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create test dataset of users
 
 ## backlog
+
+### front end
 * make search bar width expand to fill page
-* Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
-* Load in and load out user dataset
-* Create a test database of users
+* update the sign up page validation text
+* (Eventually) update the front page to make it look nicer
+* (Eventually) update the spaces between input fields in the login form to make everything look more standardized
+
+### somewhere in between?
 * Create user profile pages
 * Create user settings pages - update user information, change password, change email, delete account
 * Create a search feature to search for users by username, first name, last name, email
@@ -27,12 +31,13 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
     * create pages of search results
 * Create a schedule page where people can view a representation of their schedule
+* create form allowing users to set up events with each other
+
+### back end
+* Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
+* Load in and load out user dataset
 * Allow users to update their schedule with different events
 * research potential methods possible to have scheduling data.
     * work first on ability to modify your schedule from scratch (create "templates"?)
 * rethink algorithm on finding matching free times - probably a better one out there
-* create form allowing users to set up events with each other
 * Maybe research how to make your code more modular and easy to change
-* (Eventually) update the front page to make it look nicer
-* (Eventually) update all the graphics to look better
-* (Eventually) update the spaces between input fields in the login form to make everything look more standardized
