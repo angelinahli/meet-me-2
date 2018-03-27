@@ -12,8 +12,10 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Have the app running such that you can log in and logout
 * Write out your uml diagram - users, schedules, events.
 * Create responsive navbar
+* Make the search bar look nicer
 
 ## backlog
+* make search bar width expand to fill page
 * Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
 * Create a test database of users
 * Create user profile pages
@@ -22,7 +24,6 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match one person, return that person
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
     * create pages of search results
-    * consider placing the search bar in the navbar instead (kind of odd looking right now)
 * Create a schedule page where people can view a representation of their schedule
 * Allow users to update their schedule with different events
 * research potential methods possible to have scheduling data.

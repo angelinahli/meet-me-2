@@ -37,26 +37,21 @@ description: base template for flask app
     </button>
     
     <div class="collapse navbar-collapse" id="siteNavbar">
+
       <ul class="nav navbar-nav mr-auto">
-        <!-- navbar items here -->
+        <form class="w-100">
+          <div class="input-group">
+            <input type="text" class="form-control border border-right-0" placeholder="Search users" name="search" id="searchBar">
+            <span class="input-group-append">
+              <button class="btn btn-outline-secondary border border-left-0" type="submit">
+                <i class="fa fa-search"></i>
+              </button>
+            </span>
+          </div>
+        </form>
       </ul>
 
       <ul class="nav navbar-nav pull-right">
-        
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" role="button" id="searchMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Search
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="searchMenu">
-            <h5 class="dropdown-header">Find users</h6>
-            <form class="form-inline dropdown-item">
-              <input class="form-control mr-sm-2" type="search" aria-label="Search">
-                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
-                  Search
-                </button>
-            </form>
-          </div>
-        </li>
 
         {% if current_user.is_anonymous %}
         <!-- ask user to log in -->
