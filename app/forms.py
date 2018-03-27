@@ -44,6 +44,7 @@ class SignUpForm(FlaskForm):
     confirm = PasswordField("Repeat Password", validators=[
         EqualTo("password", message="Passwords must match.")
     ])
+    submit = SubmitField("Create Account")
 
 class NewEventForm(FlaskForm):
     event_name = StringField("Event name", validators=[DataReqMsg()])

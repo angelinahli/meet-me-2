@@ -1,37 +1,38 @@
 {% extends "base.html" %}
 
-{% block page_title %}
-<h1 class="display-4">{{ title }}</h1>
-{% endblock %}
-
 {% block content %}
-<form method="POST" action="" id="login">
-	{{ form.hidden_tag() }}
-	
-	<!-- username -->
-	<div class="form-group">
-		<label>{{ form.username.label }}</label>
-		<p>{{ form.username(size=50, class_="form-control", placeholder="username") }}</p>
-		{% for m in form.username.errors %}
-			<small class="text-error form-text text-muted">{{ m }}</small>
-		{% endfor %}
-	</div>
+<div class="card mx-auto" style="width: 80%;">
+	<div class="card-body">
+		<form method="POST" action="" id="login">
+			{{ form.hidden_tag() }}
 
-	<!-- password -->
-	<div class="form-group">
-		<label>{{ form.password.label }}</label>
-		<p>{{ form.password(size=50, class_="form-control", placeholder="password") }}</p>
-		{% for m in form.password.errors %}
-			<small class="text-error form-text text-muted">{{ m }}</small>
-		{% endfor %}
-	</div>
+			<!-- username -->
+			<label for="username">{{ form.username.label }}</label>
+		  <div class="form-group">
+		    <p>{{ form.username(id="username", class_="form-control", placeholder="username") }}</p>
+		    {% for m in form.username.errors %}
+					<small class="text-error form-text text-muted">{{ m }}</small>
+				{% endfor %}
+		  </div>
 
-	<div class="form-check form-check-inline">
-		<p>{{ form.remember_me(class_="form-check-input", id="rememberMe") }}</p>
-	  <label class="form-check-label" for="rememberMe">{{ form.remember_me.label }}</label>
-	</div>
+			<!-- password -->
+			<label for="password">{{ form.password.label }}</label>
+			<div class="form-group">
+				<p>{{ form.password(id="password", class_="form-control", placeholder="password") }}</p>
+				{% for m in form.password.errors %}
+					<small class="text-error form-text text-muted">{{ m }}</small>
+				{% endfor %}
+			</div>
 
-	<p>{{ form.submit(class_="btn btn-success") }}</p>
-</form>
-<br><br>
+			<div class="form-check form-check-inline">
+				<h6>{{ form.remember_me(class_="form-check-input", type="checkbox", id="rememberMe") }}</h6>
+			  <label class="form-check-label" for="rememberMe">{{ form.remember_me.label }}</label>
+			</div>
+
+			<p>{{ form.submit(class_="btn btn-success") }}</p>
+		</form>
+		<hr>
+		<p><a href="{{ url_for('signup') }}">Sign up an account</a></p>
+			</div>
+		</div>
 {% endblock %}

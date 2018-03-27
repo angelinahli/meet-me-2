@@ -1,58 +1,62 @@
 {% extends "base.html" %}
 
+{% block page_title %}
+<h1 class="display-4">{{ title }}</h1>
+{% endblock %}
+
 {% block content %}
-<form method="POST" action="" id="sign-up" enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
+<div class="card mx-auto" style="width: 80%;">
+  <div class="card-body">
+    <form method="POST" action="" id="sign-up">
+      {{ form.hidden_tag() }}
 
-    <div class="form-group">
-        {{ form.first_name.label }} <br>
-        {{ form.first_name(size=50) }} <br>
-        {% for m in form.first_name.errors %}
-            <span style="color: red;">{{m}}</span>
-        {% endfor %}
-    </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="fname">{{ form.first_name.label }}</label>
+          <p>{{ form.first_name(id="fname", class_="form-control", placeholder="first name") }}</p>
+          {% for m in form.first_name.errors %}
+            <small class="text-error form-text text-muted">{{ m }}</small>
+          {% endfor %}
+        </div>
+        <div class="form-group col-md-6">
+          <label for="lname">{{ form.last_name.label }}</label>
+          <p>{{ form.last_name(id="lname", class_="form-control", placeholder="last name") }}</p>
+          {% for m in form.last_name.errors %}
+            <small class="text-error form-text text-muted">{{ m }}</small>
+          {% endfor %}
+        </div>
+      </div>
 
-    <div class="form-group">
-        {{ form.last_name.label }} <br>
-        {{ form.last_name(size=50) }} <br>
-        {% for m in form.last_name.errors %}
-            <span style="color: red;">{{m}}</span>
-        {% endfor %}
-    </div>
-
-    <div class="form-group">
-        {{ form.username.label }} <br>
-        {{ form.username(size=50) }} <br>
+      <label for="username">{{ form.username.label }}</label>
+      <div class="form-group">
+        <p>{{ form.username(id="username", class_="form-control", placeholder="username") }}</p>
         <small class="form-text text-muted">Your username needs to be between {{ info['username']['min'] }} and {{ info['username']['max'] }} characters long.</small>
 
         {% for m in form.username.errors %}
-            <span style="color: red;">{{m}}</span>
+          <small class="text-error form-text text-muted">{{ m }}</small>
         {% endfor %}
-    </div>
+      </div>
 
-    <div class="form-group">
-        {{ form.password.label }} <br>
-        {{ form.password(size=50) }}
+      <label for="password">{{ form.password.label }}</label>
+      <div class="form-group">
+        <p>{{ form.password(id="password", class_="form-control", placeholder="password") }}</p>
         <small class="form-text text-muted">Your username needs to be between {{ info['password']['min'] }} and {{ info['password']['max'] }} characters long.</small>
-
         {% for m in form.password.errors %}
-            <span style="color: red;">{{m}}</span>
+          <small class="text-error form-text text-muted">{{ m }}</small>
         {% endfor %}
-    </div>
+      </div>
 
-    <div class="form-group">
-        {{ form.confirm.label }} <br>
-        {{ form.confirm(size=50) }} <br>
+      <label for="confirm">{{ form.confirm.label }}</label>
+      <div class="form-group">
+        <p>{{ form.confirm(id="confirm", class_="form-control", placeholder="repeat password") }}</p>
         {% for m in form.confirm.errors %}
-            <span style="color: red;">{{m}}</span>
+          <small class="text-error form-text text-muted">{{ m }}</small>
         {% endfor %}
-    </div>
+      </div>
 
-    <div class="form-group">
-        <label for="file">Upload file:</label>
-        <input type="file" class="form-control" id="file" name="file">
-    </div>
+      <button type="submit" class="btn btn-success">Sign Up</button>
 
-    <button type="submit" class="btn btn-success">Sign Up</button>
-</form>
+    </form>
+  </div>
+</div>
 {% endblock %}

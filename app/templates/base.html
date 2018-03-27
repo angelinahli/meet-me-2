@@ -57,8 +57,8 @@ description: base template for flask app
     </div>
   </nav>
 
-  <div class="container">
-    {% block page_title %}{% endblock %}
+  <div class="container text-center">
+    <h1 class="display-4">{{ title }}</h1>
     <br>
     
     {% with messages = get_flashed_messages() %}
