@@ -13,50 +13,74 @@
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="fname">{{ form.first_name.label }}</label>
-          <p>{{ form.first_name(id="fname", class_="form-control", placeholder="first name") }}</p>
+          <p>{{ form.first_name(id="fname", class_="form-control", placeholder="Wendy") }}</p>
           {% for m in form.first_name.errors %}
             <small class="text-error form-text text-muted">{{ m }}</small>
           {% endfor %}
         </div>
         <div class="form-group col-md-6">
           <label for="lname">{{ form.last_name.label }}</label>
-          <p>{{ form.last_name(id="lname", class_="form-control", placeholder="last name") }}</p>
+          <p>{{ form.last_name(id="lname", class_="form-control", placeholder="Wellesley") }}</p>
           {% for m in form.last_name.errors %}
             <small class="text-error form-text text-muted">{{ m }}</small>
           {% endfor %}
         </div>
       </div>
 
-      <label for="username">{{ form.username.label }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="email"><i class="fas fa-envelope"></i></span>
+        </div>
+        {{ form.email(id="email", class_="form-control", aria_label="email", aria_describedby=email, placeholder="wendy@example.com") }}
+      </div>
       <div class="form-group">
-        <p>{{ form.username(id="username", class_="form-control", placeholder="username") }}</p>
-        <small class="form-text text-muted">Your username needs to be between {{ info['username']['min'] }} and {{ info['username']['max'] }} characters long.</small>
+        {% for m in form.email.errors %}
+          <small class="text-error form-text text-muted">{{ m }}</small>
+        {% endfor %}
+      </div>
 
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="username"><i class="fas fa-user"></i></span>
+        </div>
+        {{ form.username(id="username", class_="form-control", aria_label="username", aria_describedby=username, placeholder="username") }}
+      </div>
+      <small class="form-text text-muted">Your username needs to be between {{ info['username']['min'] }} and {{ info['username']['max'] }} characters long.</small>
+      <div class="form-group">
         {% for m in form.username.errors %}
           <small class="text-error form-text text-muted">{{ m }}</small>
         {% endfor %}
       </div>
 
-      <label for="password">{{ form.password.label }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="password"><i class="fas fa-key"></i></span>
+        </div>
+        {{ form.password(id="password", class_="form-control", aria_label="password", aria_describedby=password, placeholder="password") }}
+      </div>
+      <small class="form-text text-muted">Your password needs to be between {{ info['password']['min'] }} and {{ info['password']['max'] }} characters long.</small>
       <div class="form-group">
-        <p>{{ form.password(id="password", class_="form-control", placeholder="password") }}</p>
-        <small class="form-text text-muted">Your username needs to be between {{ info['password']['min'] }} and {{ info['password']['max'] }} characters long.</small>
         {% for m in form.password.errors %}
           <small class="text-error form-text text-muted">{{ m }}</small>
         {% endfor %}
       </div>
 
-      <label for="confirm">{{ form.confirm.label }}</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="confirm"><i class="fas fa-key"></i></span>
+        </div>
+        {{ form.confirm(id="confirm", class_="form-control", aria_label="confirm", aria_describedby=confirm, placeholder="repeat password") }}
+      </div>
       <div class="form-group">
-        <p>{{ form.confirm(id="confirm", class_="form-control", placeholder="repeat password") }}</p>
         {% for m in form.confirm.errors %}
           <small class="text-error form-text text-muted">{{ m }}</small>
         {% endfor %}
       </div>
 
-      <button type="submit" class="btn btn-success">Sign Up</button>
-
+      <p>{{ form.submit(class_="btn btn-success") }}</p>
     </form>
+    <hr>
+    <p><a href="{{ url_for('login') }}">Login to your account</a></p>
   </div>
 </div>
 {% endblock %}
