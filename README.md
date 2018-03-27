@@ -4,6 +4,8 @@ One of the problems with existing applications like when2meet, doodle, etc. that
 
 This is an [extension](https://github.com/angelinahli/meet-me) of a project created during [Sister Hacks 2018](http://sisterhacks.co/).
 
+I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world)'s excellent introduction to the Flask framework.
+
 ## backlog
 * Create a test database of users
 * Write out your uml diagram - users, schedules, events.

@@ -29,7 +29,7 @@ description: base template for flask app
 </head>
 
 <body>  
-  <nav class="navbar navbar-expand-lg navbar-light">
+  <nav class="navbar navbar-expand-md navbar-light">
     <a class="navbar-brand" href="{{ url_for('index') }}">Meet Me</a>
     
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#siteNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,12 +44,13 @@ description: base template for flask app
       </ul>
 
       <ul class="nav navbar-nav pull-right">
+        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" id="searchMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Search
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="searchMenu">
-            <h5 class="dropdown-header"><i class="fas fa-users"></i> Find users</h6>
+            <h5 class="dropdown-header">Find users</h6>
             <form class="form-inline dropdown-item">
               <input class="form-control mr-sm-2" type="search" aria-label="Search">
                 <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">
@@ -59,35 +60,53 @@ description: base template for flask app
           </div>
         </li>
 
+        {% if current_user.is_anonymous %}
+        <!-- ask user to log in -->
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+        </li>
+        <form class="form-inline ml-2">
+          <a class="btn btn-outline-success" href="{{ url_for('signup') }}">Sign Up</a>
+        </form>
+        
+        {% else %}
+        <!-- show user control panel -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Account
+            {{ current_user.username }}
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountMenu">
             <h5 class="dropdown-header">My Account</h6>
-            <a class="dropdown-item" href="{{ url_for('login') }}">Login/Register</a>
+            
+            <!-- session management -->
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a>
           </div>
         </li>
+        {% endif %}
       </ul>
 
     </div>
   </nav>
 
   <div class="container text-center">
-    <h1 class="display-4">{{ title }}</h1>
-    <br>
-    
     {% with messages = get_flashed_messages() %}
     {% if messages %}
     <ul class="list-group">
     {% for m in messages %}
+      {% if m.category %}
+      <li class="list-group-item list-group-item-{{ m.category }}">{{ m }}</li>
+      {% else %}
       <li class="list-group-item list-group-item-info">{{ m }}</li>
+      {% endif %}
     {% endfor %}
     </ul>
     <br>
     {% endif %}
     {% endwith %}
-    
+
+    <h1 class="display-4">{{ title }}</h1>
+    <br>
     {% block content %}{% endblock %}
   </div>
 
