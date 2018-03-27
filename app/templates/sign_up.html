@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST" action="" id="sign-up" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="form-group">
+        {{ form.first_name.label }} <br>
+        {{ form.first_name(size=50) }} <br>
+        {% for m in form.first_name.errors %}
+            <span style="color: red;">{{m}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.last_name.label }} <br>
+        {{ form.last_name(size=50) }} <br>
+        {% for m in form.last_name.errors %}
+            <span style="color: red;">{{m}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.username.label }} <br>
+        {{ form.username(size=50) }} <br>
+        <small class="form-text text-muted">Your username needs to be between {{ info['username']['min'] }} and {{ info['username']['max'] }} characters long.</small>
+
+        {% for m in form.username.errors %}
+            <span style="color: red;">{{m}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.password.label }} <br>
+        {{ form.password(size=50) }}
+        <small class="form-text text-muted">Your username needs to be between {{ info['password']['min'] }} and {{ info['password']['max'] }} characters long.</small>
+
+        {% for m in form.password.errors %}
+            <span style="color: red;">{{m}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        {{ form.confirm.label }} <br>
+        {{ form.confirm(size=50) }} <br>
+        {% for m in form.confirm.errors %}
+            <span style="color: red;">{{m}}</span>
+        {% endfor %}
+    </div>
+
+    <div class="form-group">
+        <label for="file">Upload file:</label>
+        <input type="file" class="form-control" id="file" name="file">
+    </div>
+
+    <button type="submit" class="btn btn-success">Sign Up</button>
+</form>
+{% endblock %}

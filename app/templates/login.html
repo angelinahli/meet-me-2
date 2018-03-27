@@ -1,4 +1,37 @@
 {% extends "base.html" %}
 
+{% block page_title %}
+<h1 class="display-4">{{ title }}</h1>
+{% endblock %}
+
 {% block content %}
+<form method="POST" action="" id="login">
+	{{ form.hidden_tag() }}
+	
+	<!-- username -->
+	<div class="form-group">
+		<label>{{ form.username.label }}</label>
+		<p>{{ form.username(size=50, class_="form-control", placeholder="username") }}</p>
+		{% for m in form.username.errors %}
+			<small class="text-error form-text text-muted">{{ m }}</small>
+		{% endfor %}
+	</div>
+
+	<!-- password -->
+	<div class="form-group">
+		<label>{{ form.password.label }}</label>
+		<p>{{ form.password(size=50, class_="form-control", placeholder="password") }}</p>
+		{% for m in form.password.errors %}
+			<small class="text-error form-text text-muted">{{ m }}</small>
+		{% endfor %}
+	</div>
+
+	<div class="form-check form-check-inline">
+		<p>{{ form.remember_me(class_="form-check-input", id="rememberMe") }}</p>
+	  <label class="form-check-label" for="rememberMe">{{ form.remember_me.label }}</label>
+	</div>
+
+	<p>{{ form.submit(class_="btn btn-success") }}</p>
+</form>
+<br><br>
 {% endblock %}

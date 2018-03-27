@@ -2,7 +2,7 @@
 
 One of the problems with existing applications like when2meet, doodle, etc. that help users to coordinate meeting times is that they are so tedious to use repeatedly - users have to put in virtually the same information each time they want to use the app to meet with a new person. I want to create an application that will allow users to co-ordinate meeting times by uploading their ical calendars, and/or maybe create some 'default' times they're free that they can edit each time as needed.
 
-This is an [extension](https://github.com/angelinahli/meet-me) of a project created during [Sister Hacks 2018](http://sisterhacks.co/)
+This is an [extension](https://github.com/angelinahli/meet-me) of a project created during [Sister Hacks 2018](http://sisterhacks.co/).
 
 ## backlog
 * Create a test database of users
