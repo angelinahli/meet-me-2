@@ -1,8 +1,5 @@
-"""
-filename: program_info.py
-desc: some basic information about our program - how long the min password
-      can be, how long the min username can be, etc.
-"""
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 info = {
     "username": {
