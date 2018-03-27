@@ -14,7 +14,7 @@ def login():
     form = LoginForm()
     return render_template("login.html", title="Login", form=form)
 
-@app.route("/signup/", methods=["GET", "POST"])
+@app.route("/register/", methods=["GET", "POST"])
 def signup():
     form = SignUpForm()
     return render_template("sign_up.html", title="Sign Up", form=form, info=info)

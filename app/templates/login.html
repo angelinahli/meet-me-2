@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="card mx-auto" style="width: 80%;">
+<div class="card mx-auto bg-light" style="width: 80%;">
   <div class="card-body">
     <form method="POST" action="" id="login">
       {{ form.hidden_tag() }}
@@ -36,11 +36,11 @@
         <h6>{{ form.remember_me(class_="form-check-input", type="checkbox", id="rememberMe") }}</h6>
         <label class="form-check-label" for="rememberMe">{{ form.remember_me.label }}</label>
       </div>
-
+      
       <p>{{ form.submit(class_="btn btn-success") }}</p>
     </form>
     <hr>
-    <p><a href="{{ url_for('signup') }}">Sign up an account</a></p>
+    <p><a href="{{ url_for('signup') }}">Create an account</a></p>
   </div>
 </div>
 {% endblock %}
