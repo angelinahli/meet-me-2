@@ -4,6 +4,92 @@
 <div class="card mx-auto" style="width: 80%;">
   <div class="card-body">
     <form method="POST" action="" id="sign-up">
+      <p class="lead">Change any of these rows to update your account</p>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#first_name" class="col-form-label">{{ form.first_name.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.first_name(id="first_name", class_="form-control", value=current_user.first_name) }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.first_name.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#last_name" class="col-form-label">{{ form.last_name.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.last_name(id="last_name", class_="form-control", value=current_user.last_name) }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.last_name.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#username" class="col-form-label">{{ form.username.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.username(id="username", class_="form-control", value=current_user.username) }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.username.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+      
+      
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#email" class="col-form-label">{{ form.email.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.email(id="email", class_="form-control", value=current_user.email) }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.email.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#password" class="col-form-label">{{ form.password.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.password(id="password", class_="form-control", placeholder="Please enter your password again to continue") }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.password.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <a href="#dangerSettings" class="btn btn-danger" data-toggle="collapse">Danger Zone</a>
+
+      <div id="dangerSettings" class="collapse">
+        <p>
+          <br>
+          Note: Deleting your account will delete all the data associated with your account. This action is irreversible.<br>
+          {{ form.delete(class_="btn btn-link") }}
+        </p>
+      </div>
+
+      <hr>
+
+      <p>{{ form.submit(class_="btn btn-primary") }}</p>
     </form>
   </div>
 </div>

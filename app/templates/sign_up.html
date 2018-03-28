@@ -41,7 +41,7 @@
         </div>
         {{ form.username(id="username", class_="form-control", aria_label="username", aria_describedby=username, placeholder="username") }}
       </div>
-      <small class="form-text text-muted">Some validation text.</small>
+      <small class="form-text text-muted">{{ form.user_help_text }}</small>
       <div class="form-group">
         {% for m in form.username.errors %}
           <p class="text-error form-text">{{ m }}</p>
@@ -54,7 +54,7 @@
         </div>
         {{ form.password(id="password", class_="form-control", aria_label="password", aria_describedby=password, placeholder="password") }}
       </div>
-      <small class="form-text text-muted">Some validation text.</small>
+      <small class="form-text text-muted">{{ form.pass_help_text }}</small>
       <div class="form-group">
         {% for m in form.password.errors %}
           <p class="text-error form-text">{{ m }}</p>

@@ -15,18 +15,6 @@ class DataReqMsg(DataRequired):
     def __init__(self):
         DataRequired.__init__(self, message="Data required")
 
-class LengthMsg(Length):
-    def __init__(self, len_dict, field_name):
-        lmin = len_dict["min"]
-        lmax = len_dict["max"]
-        lmessage = ("Please provide a {name} between {min} and " + 
-            "{max} characters long.").format(
-                name=field_name,
-                min=lmin,
-                max=lmax
-        )
-        Length.__init__(self, min=lmin, max=lmax, message=lmessage)
-
 # form classes
 
 class LoginForm(FlaskForm):
@@ -87,6 +75,18 @@ class SignUpForm(FlaskForm):
         if user is not None:
             raise ValidationError(
                 "There is already an account associated with this email")
+
+class SettingsForm(FlaskForm):
+    first_name = StringField("First name", validators=[DataReqMsg()])
+    last_name = StringField("Last name", validators=[DataReqMsg()])
+    username = StringField("Username", validators=[DataReqMsg()])
+    email = StringField("Email", validators=[DataReqMsg(), Email()])
+    password = PasswordField("Password", validators=[DataReqMsg()])
+    confirm = PasswordField("Repeat Password", validators=[
+        EqualTo("password", message="Passwords must match.")
+    ])
+    submit = SubmitField("Save")
+    delete = SubmitField("Delete Account")
 
 class NewEventForm(FlaskForm):
     event_name = StringField("Event name", validators=[DataReqMsg()])

@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user, login_required
 
 import program.users as us
 from app import app, db
-from app.forms import LoginForm, SignUpForm
+from app.forms import LoginForm, SignUpForm, SettingsForm
 from app.models import User, Event
 from program.exceptions import FlashException
 
@@ -58,8 +58,11 @@ def logout():
     logout_user()
     return redirect(url_for("index"))
 
-@app.route("/settings/")
+@app.route("/settings/", methods=["GET", "POST"])
 @login_required
 def settings():
-    dct = {"title": current_user.first_name + "'s Settings"}
+    dct = {"title": current_user.first_name.capitalize() + "'s Settings"}
+    form = SettingsForm()
+    dct["form"] = form
+    dct["current_user"] = current_user
     return render_template("settings.html", **dct)
