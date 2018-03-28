@@ -4,7 +4,7 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 
-import program.user_sessions as us
+import program.users as us
 from app import app, db
 from app.forms import LoginForm, SignUpForm
 from app.models import User, Event
@@ -26,7 +26,10 @@ def login():
     dct["form"] = form
     if form.validate_on_submit():
         try:
-            us.login_user(form.username.data, form.password.data)
+            us.login_user(
+                form.username.data, 
+                form.password.data, 
+                form.remember_me.data)
             return redirect(url_for("index"))
         except FlashException as e:
             flash(e.message, category=e.category)
@@ -41,17 +44,12 @@ def signup():
     form = SignUpForm()
     dct["form"] = form
     if form.validate_on_submit():
-        user = User(
-            username=form.username.data,
-            email=form.email.data,
-            first_name=form.first_name.data,
-            last_name=form.last_name.data
-        )
-        user.set_password(form.password.data)
-        db.session.add(user)
-        db.session.commit()
-        flash("Welcome to the family, {}!!".format(
-            user.first_name), "info")
+        us.register_user(
+            form.username.data, 
+            form.email.data, 
+            form.first_name.data, 
+            form.last_name.data, 
+            form.password.data)
         return redirect(url_for("login"))
     return render_template("sign_up.html", **dct)
 
