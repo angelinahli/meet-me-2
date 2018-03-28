@@ -86,7 +86,7 @@ class SettingsForm(FlaskForm):
     username = StringField("Username", validators=[DataReqMsg()])
     email = StringField("Email", validators=[DataReqMsg(), Email()])
     password = PasswordField("Password", validators=[DataReqMsg()])
-    new_password = PasswordField("New Password", validators=[DataReqMsg()])
+    new_password = PasswordField("New Password")
     confirm = PasswordField("Repeat", validators=[
         EqualTo("new_password", message="Passwords must match.")
     ])
@@ -94,13 +94,17 @@ class SettingsForm(FlaskForm):
     delete = SubmitField("Delete Account")
 
     def validate_new_password(self, new_password):
+        if not new_password:
+            return
         if len(new_password) < 6:
             raise ValidationError(
                 "Password must be at least 6 characters long!")
         if not re.search("[a-z]", new_password):
-            raise ValidationError("Password must contain a lower case letter!")
+            raise ValidationError(
+                "Password must contain a lower case letter!")
         if not re.search("[A-Z]", new_password):
-            raise ValidationError("Password must contain a upper case letter!")
+            raise ValidationError(
+                "Password must contain a upper case letter!")
         if not re.search("[0-9]", new_password):
             raise ValidationError("Password must contain a number!")
         if re.search("\s", new_password):
