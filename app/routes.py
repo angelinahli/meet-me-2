@@ -66,3 +66,9 @@ def logout():
     logout_user()
     flash("See you {}!".format(current_user.first_name))
     return redirect(url_for("index"))
+
+@app.route("/settings/")
+@login_required
+def settings():
+    dct = {"title": current_user.first_name + "'s Settings"}
+    return render_template("settings.html", **dct)

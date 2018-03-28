@@ -22,6 +22,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * update the sign up page validation text
 * (Eventually) update the front page to make it look nicer
 * (Eventually) update the spaces between input fields in the login form to make everything look more standardized
+* Load in and load out user dataset
 
 ### somewhere in between?
 * Create user profile pages
@@ -35,7 +36,6 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 
 ### back end
 * Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
-* Load in and load out user dataset
 * Allow users to update their schedule with different events
 * research potential methods possible to have scheduling data.
     * work first on ability to modify your schedule from scratch (create "templates"?)

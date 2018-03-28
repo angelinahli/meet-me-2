@@ -8,6 +8,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 
 class User(db.Model, UserMixin):
+    __tablename__ = "user"
+    __table_args__ = {"mysql_engine": "InnoDB"}
+
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -22,9 +25,6 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-    # set table name
-    __tablename__ = "user"
-
     def __repr__(self):
         return "<User #{id}: {username}>".format(
             id=self.id, 
@@ -32,14 +32,19 @@ class User(db.Model, UserMixin):
         )
 
 class Event(db.Model):
+    __tablename__ = "event"
+    __table_args__ = {"mysql_engine": "InnoDB"}
+
     id = db.Column(db.Integer, primary_key=True)
     desc = db.Column(db.String(120), index=True)
     start_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     end_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"), 
+        onupdate="cascade")
 
-    # set table name
-    __tablename__ = "event"
+    def set_user_id(self, username):
+        u = User.query.filter_by(username=username).first()
+        self.user_id = u.id
 
     def __repr__(self):
         return "<Event #{id}: {desc}>".format(
