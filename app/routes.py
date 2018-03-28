@@ -61,8 +61,10 @@ def logout():
 @app.route("/settings/", methods=["GET", "POST"])
 @login_required
 def settings():
-    dct = {"title": current_user.first_name.capitalize() + "'s Settings"}
+    dct = {
+        "title": current_user.first_name.capitalize() + "'s Settings",
+        "current_user": current_user
+    }
     form = SettingsForm()
     dct["form"] = form
-    dct["current_user"] = current_user
     return render_template("settings.html", **dct)

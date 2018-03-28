@@ -63,12 +63,49 @@
         </div>
       </div>
 
+      <div class="text-xs-center text-sm-right">
+        <a href="#updatePassword" class="btn btn-link" data-toggle="collapse" aria-expanded="false">Change Password</a>
+      </div>
+
+      <div id="updatePassword" class="collapse">
+        <div class="form-row">
+          <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+            <label for="#new_password" class="col-form-label">{{ form.new_password.label }}</label>
+          </div>
+          <div class="col-sm-9 col-md-9 col-lg-10">
+            <p>{{ form.new_password(id="new_password", class_="form-control", placeholder="Enter your new password here") }}</p>
+            <small class="form-text text-muted">{{ form.pass_help_text }}</small>
+          </div>
+          <div class="col">
+            {% for m in form.new_password.errors %}
+              <p class="text-error form-text">{{ m }}</p>
+            {% endfor %}
+          </div>
+        </div>
+
+        <br>
+
+        <div class="form-row">
+          <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+            <label for="#confirm" class="col-form-label">{{ form.confirm.label }}</label>
+          </div>
+          <div class="col-sm-9 col-md-9 col-lg-10">
+            <p>{{ form.confirm(id="confirm", class_="form-control", placeholder="Please re-enter your new password") }}</p>
+          </div>
+          <div class="col">
+            {% for m in form.confirm.errors %}
+              <p class="text-error form-text">{{ m }}</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
       <div class="form-row">
         <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
           <label for="#password" class="col-form-label">{{ form.password.label }}</label>
         </div>
         <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.password(id="password", class_="form-control", placeholder="Please enter your password again to continue") }}</p>
+          <p>{{ form.password(id="password", class_="form-control", placeholder="Please enter your current password to continue") }}</p>
         </div>
         <div class="col">
           {% for m in form.password.errors %}
@@ -77,7 +114,7 @@
         </div>
       </div>
 
-      <a href="#dangerSettings" class="btn btn-danger" data-toggle="collapse">Danger Zone</a>
+      <a href="#dangerSettings" class="btn btn-danger" data-toggle="collapse" aria-expanded="false">Danger Zone</a>
 
       <div id="dangerSettings" class="collapse">
         <p>

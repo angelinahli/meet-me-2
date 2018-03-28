@@ -77,16 +77,36 @@ class SignUpForm(FlaskForm):
                 "There is already an account associated with this email")
 
 class SettingsForm(FlaskForm):
+    pass_help_text = ("Password should be longer than 6 characters and " + 
+        "include at least 1 of each: lower case letter, upper case letter " + 
+        "and number")
+
     first_name = StringField("First name", validators=[DataReqMsg()])
     last_name = StringField("Last name", validators=[DataReqMsg()])
     username = StringField("Username", validators=[DataReqMsg()])
     email = StringField("Email", validators=[DataReqMsg(), Email()])
     password = PasswordField("Password", validators=[DataReqMsg()])
-    confirm = PasswordField("Repeat Password", validators=[
-        EqualTo("password", message="Passwords must match.")
+    new_password = PasswordField("New Password", validators=[DataReqMsg()])
+    confirm = PasswordField("Repeat", validators=[
+        EqualTo("new_password", message="Passwords must match.")
     ])
     submit = SubmitField("Save")
     delete = SubmitField("Delete Account")
+
+    def validate_new_password(self, new_password):
+        if len(new_password) < 6:
+            raise ValidationError(
+                "Password must be at least 6 characters long!")
+        if not re.search("[a-z]", new_password):
+            raise ValidationError("Password must contain a lower case letter!")
+        if not re.search("[A-Z]", new_password):
+            raise ValidationError("Password must contain a upper case letter!")
+        if not re.search("[0-9]", new_password):
+            raise ValidationError("Password must contain a number!")
+        if re.search("\s", new_password):
+            raise ValidationError(
+                "Password cannot contain whitespace characters!")
+
 
 class NewEventForm(FlaskForm):
     event_name = StringField("Event name", validators=[DataReqMsg()])
