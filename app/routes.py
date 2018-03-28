@@ -4,9 +4,11 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 
+import program.user_sessions as us
 from app import app, db
 from app.forms import LoginForm, SignUpForm
 from app.models import User, Event
+from program.exceptions import FlashException
 
 @app.route("/")
 @app.route("/index/")
@@ -23,19 +25,11 @@ def login():
     form = LoginForm()
     dct["form"] = form
     if form.validate_on_submit():
-        username = form.username.data
-        password = form.password.data
-        user = User.query.filter_by(username=username).first()
-        if user == None:
-            msg = "This user doesn't exist!"
-            form.username.errors.append(msg)
-        elif not user.check_password(password):
-            msg = "This password is invalid!"
-            form.password.errors.append(mg)
-        else:
-            login_user(user, remember=form.remember_me.data)
-            flash("Hi {}!".format(user.first_name), "info")
+        try:
+            us.login_user(form.username.data, form.password.data)
             return redirect(url_for("index"))
+        except FlashException as e:
+            flash(e.message, category=e.category)
     return render_template("login.html", **dct)
 
 @app.route("/signup/", methods=["GET", "POST"])
@@ -64,7 +58,6 @@ def signup():
 @app.route("/logout/")
 def logout():
     logout_user()
-    flash("See you {}!".format(current_user.first_name))
     return redirect(url_for("index"))
 
 @app.route("/settings/")

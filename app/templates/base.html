@@ -83,14 +83,14 @@ description: base template for flask app
   </nav>
 
   <div class="container text-center">
-    {% with messages = get_flashed_messages() %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
     <ul class="list-group">
-    {% for m in messages %}
-      {% if m.category %}
-      <li class="list-group-item list-group-item-{{ m.category }}">{{ m }}</li>
+    {% for c, m in messages %}
+      {% if c == "error" %}
+      <li class="list-group-item list-group-item-danger">{{m}}</li>
       {% else %}
-      <li class="list-group-item list-group-item-info">{{ m }}</li>
+      <li class="list-group-item list-group-item-{{ c }}">{{m}}</li>
       {% endif %}
     {% endfor %}
     </ul>
