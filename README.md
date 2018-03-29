@@ -14,6 +14,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create responsive navbar
 * Make the search bar look nicer
 * Create test dataset of users
+* Create user settings pages - update user information, change password, change email, delete account
 
 ## backlog
 
@@ -28,7 +29,6 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create user profile pages
 * update validation functions
 * figure out some other way of doing the multiple submit button stuff
-* Create user settings pages - update user information, change password, change email, delete account
 * Create a search feature to search for users by username, first name, last name, email
     * if match one person, return that person
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results

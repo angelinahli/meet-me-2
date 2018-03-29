@@ -79,3 +79,13 @@ def settings():
             db.session.commit()
             flash("Updated settings!", "info")
     return render_template("settings.html", **dct)
+
+@app.route("/u/<username>/", methods=["GET", "POST"])
+@app.route("/user/<username>/", methods=["GET", "POST"])
+def user(username):
+    u = User.query.filter_by(username=username).first()
+    if not u:
+        flash("This user doesn't exist!", "warning")
+        return redirect(url_for("index"))
+    dct = {"no_title": True, "user": u}
+    return render_template("user_page.html", **dct)

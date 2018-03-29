@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  <div class="col-sm-4 text-left">
+    <img src="{{ user.avatar(230) }}" class="rounded img-fluid">
+    <p></p>
+    <h2>{{ user.first_name.capitalize() }} {{ user.last_name.capitalize() }}</h2>
+    <p class="lead">{{ user.username }}</p>
+    <hr>
+    <h4>Contact me</h4>
+    <p><i class="fas fa-envelope"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
+  </div>
+  <div class="col-sm-8">
+    <ul class="list-group">
+    {% for e in user.events %}
+      <li class="list-group-item">
+        <b>{{ e.get_str_date() }}</b><br>
+        <i>{{ e.get_str_start() }} - {{ e.get_str_end() }}</i><br>
+        {{ e.desc }}
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

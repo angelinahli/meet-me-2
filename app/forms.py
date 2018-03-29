@@ -165,6 +165,10 @@ class SettingsForm(FlaskForm):
         if not current_user.check_password(pw):
             raise ValidationError("This password is invalid!")
 
+class SearchForm(FlaskForm):
+    query = StringField()
+    submit = SubmitField()
+
 class NewEventForm(FlaskForm):
     event_name = StringField("Event name", validators=[DataReqMsg()])
     start_time = DateTimeField("Start period", validators=[

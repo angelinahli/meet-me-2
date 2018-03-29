@@ -3,6 +3,7 @@
 
 from datetime import datetime
 from flask_login import UserMixin
+from hashlib import md5
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login
@@ -25,6 +26,11 @@ class User(db.Model, UserMixin):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    def avatar(self, size):
+        digest = md5(self.email.lower()).hexdigest()
+        return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(
+            digest, size)
+
     def __repr__(self):
         return "<User #{id}: {username}>".format(
             id=self.id, 
@@ -46,6 +52,18 @@ class Event(db.Model):
         u = User.query.filter_by(username=username).first()
         self.user_id = u.id
 
+    def get_str_date(self):
+        return self.start_time.date().strftime("%A, %d %B %Y")
+
+    def get_str_start(self):
+        return self.start_time.strftime("%I:%M%p")
+
+    def get_str_end(self):
+        diff_date = self.end_time.date() != self.start_time.date()
+        if diff_date:
+            return self.end_time.strftime("%A, %d %B %I:%M%p")
+        return self.end_time.strftime("%I:%M%p")
+
     def __repr__(self):
         return "<Event #{id}: {desc}>".format(
             id=self.id,
@@ -53,6 +71,13 @@ class Event(db.Model):
             start_time=self.start_time,
             end_time=self.end_time
         )
+
+class Schedule(object):
+
+    def __init__(self, user):
+        """user: User object"""
+        self.user = user
+        self.events = self.user.events
 
 @login.user_loader
 def load_user(id):

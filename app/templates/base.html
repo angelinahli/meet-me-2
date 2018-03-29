@@ -103,7 +103,9 @@ description: base template for flask app
     {% endif %}
     {% endwith %}
 
+    {% if not no_title %}
     <h1 class="display-4">{{ title }}</h1>
+    {% endif %}
     <br>
     {% block content %}{% endblock %}
   </div>
