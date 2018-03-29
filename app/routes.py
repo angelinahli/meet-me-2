@@ -62,9 +62,13 @@ def settings():
     dct["form"] = form
     if form.validate_on_submit():
         if form.delete.data:
-            db.session.delete(current_user)
+            username = current_user.username
+            logout_user()
+            u = User.query.filter_by(username=username).first()
+            db.session.delete(u)
+            db.session.commit()
             flash("Successfully deleted account!", "info")
-            return redirect(url_for("login"))
+            return redirect(url_for("index"))
         elif form.submit.data:
             current_user.username = form.username.data
             current_user.email = form.email.data
@@ -72,6 +76,6 @@ def settings():
             current_user.last_name = form.last_name.data
             if form.new_password.data:
                 current_user.set_password(form.new_password.data)
+            db.session.commit()
             flash("Updated settings!", "info")
-        db.session.commit()
     return render_template("settings.html", **dct)
