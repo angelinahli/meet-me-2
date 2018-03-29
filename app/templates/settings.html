@@ -4,6 +4,7 @@
 <div class="card mx-auto" style="width: 80%;">
   <div class="card-body">
     <form method="POST" action="" id="sign-up">
+      {{ form.hidden_tag() }}
       <p class="lead">Change any of these rows to update your account</p>
 
       <div class="form-row">
@@ -117,17 +118,41 @@
       <a href="#dangerSettings" class="btn btn-danger" data-toggle="collapse" aria-expanded="false">Danger Zone</a>
 
       <div id="dangerSettings" class="collapse">
-        <p>
-          <br>
-          Note: Deleting your account will delete all the data associated with your account. This action is irreversible.<br>
-          {{ form.delete(class_="btn btn-link", value="delete") }}
-        </p>
+        <p><br>Click on the link below to delete your account. Remember, this action is irreversible!<br>
+        {{ form.delete(class_="btn btn-link") }}</p>
       </div>
 
       <hr>
 
-      <p>{{ form.submit(class_="btn btn-primary", value="submit") }}</p>
+      <p>{{ form.submit(class_="btn btn-primary") }}</p>
     </form>
   </div>
 </div>
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+<script>
+$("#delete").click( function() {
+  return confirm("Are you sure?\nThis action cannot be undone!");
+})
+// $("#delete").on("click", function () {
+//   return $.confirm({
+//     title: "Are you sure?",
+//     content: "This action is permanent and will delete all data associated with your account!",
+//     buttons: {
+//       ok: {
+//         btnClass: "btn-danger"
+//       },
+//       cancel: {
+//         btnClass: "btn-primary"
+//       }
+//     }
+//   });
+// });
+</script>
 {% endblock %}

@@ -27,6 +27,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 ### somewhere in between?
 * Create user profile pages
 * update validation functions
+* figure out some other way of doing the multiple submit button stuff
 * Create user settings pages - update user information, change password, change email, delete account
 * Create a search feature to search for users by username, first name, last name, email
     * if match one person, return that person

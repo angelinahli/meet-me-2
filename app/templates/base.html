@@ -24,8 +24,10 @@ description: base template for flask app
   <!-- bootstrap css -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <!-- custom js -->
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"
+  <!-- custom css -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+  {% block css %}{% endblock %}
 </head>
 
 <body>  
@@ -90,8 +92,10 @@ description: base template for flask app
     {% for c, m in messages %}
       {% if c == "error" %}
       <li class="list-group-item list-group-item-danger">{{m}}</li>
-      {% else %}
+      {% elif c %}
       <li class="list-group-item list-group-item-{{ c }}">{{m}}</li>
+      {% else %}
+      <li class="list-group-item list-group-item-info">{{m}}</li>
       {% endif %}
     {% endfor %}
     </ul>
