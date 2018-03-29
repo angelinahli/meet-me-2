@@ -82,6 +82,7 @@ def settings():
 
 @app.route("/u/<username>/", methods=["GET", "POST"])
 @app.route("/user/<username>/", methods=["GET", "POST"])
+@login_required
 def user(username):
     u = User.query.filter_by(username=username).first()
     if not u:
