@@ -118,7 +118,8 @@
       <a href="#dangerSettings" class="btn btn-danger" data-toggle="collapse" aria-expanded="false">Danger Zone</a>
 
       <div id="dangerSettings" class="collapse">
-        <p>{{ form.delete(class_="btn btn-link") }}</p>
+        <p><br>Click on the link below to delete your account. Remember, this action is irreversible!<br>
+        {{ form.delete(class_="btn btn-link") }}</p>
       </div>
 
       <hr>
@@ -135,4 +136,20 @@
 
 {% block js %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+<script>
+$("#delete").on("click", function () {
+  return $.confirm({
+    title: "Are you sure?",
+    content: "This action is permanent and will delete all data associated with your account!",
+    buttons: {
+      ok: {
+        btnClass: "btn-danger"
+      },
+      cancel: {
+        btnClass: "btn-primary"
+      }
+    }
+  });
+});
+</script>
 {% endblock %}

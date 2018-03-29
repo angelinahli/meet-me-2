@@ -73,4 +73,4 @@ def view_db_data():
 if __name__ == "__main__":
     delete_test_data()
     insert_test_data()
-    view_db_data()
+    # view_db_data()
