@@ -25,14 +25,9 @@ def login():
     form = LoginForm()
     dct["form"] = form
     if form.validate_on_submit():
-        try:
-            us.login_user(
-                form.username.data, 
-                form.password.data, 
-                form.remember_me.data)
-            return redirect(url_for("index"))
-        except FlashException as e:
-            flash(e.message, e.category)
+        user = form.user
+        login_user(user, remember=form.remember_me.data)
+        return redirect(url_for("index"))
     return render_template("login.html", **dct)
 
 @app.route("/signup/", methods=["GET", "POST"])
@@ -44,17 +39,10 @@ def signup():
     form = SignUpForm()
     dct["form"] = form
     if form.validate_on_submit():
-        first_name = form.first_name.data.strip()
-        last_name = form.last_name.data.strip()
-        user = User(
-            username=form.username.data,
-            email=form.email.data,
-            first_name=first_name,
-            last_name=last_name)
-        user.set_password(form.password.data)
-        db.session.add(user)
+        db.session.add(form.user.data)
         db.session.commit()
-        flash("Welcome to the family, {}!!".format(user.first_name), "info")
+        flash("Welcome to the family, {}!!".format(form.user.first_name.data), 
+            "info")
         return redirect(url_for("login"))
     return render_template("sign_up.html", **dct)
 
@@ -73,14 +61,15 @@ def settings():
     form = SettingsForm()
     dct["form"] = form
     if form.validate_on_submit():
-        try:
-            us.update_user_settings(
-                form.username.data,
-                form.email.data,
-                form.first_name.data,
-                form.last_name.data,
-                form.password.data,
-                form.new_password.data)
-        except FlashException as e:
-            flash(e.message, e.category)
+        if form.delete.data:
+            db.session.delete(current_user)
+        elif form.submit.data:
+            current_user.username.data = form.username.data
+            current_user.email.data = form.email.data
+            current_user.first_name.data = form.first_name.data
+            current_user.last_name.data = form.last_name.data
+            if form.new_password.data:
+                current_user.set_password(form.new_password.data)
+            flash("Updated settings!", "info")
+        db.session.commit()
     return render_template("settings.html", **dct)
