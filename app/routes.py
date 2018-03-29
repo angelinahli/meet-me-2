@@ -63,11 +63,13 @@ def settings():
     if form.validate_on_submit():
         if form.delete.data:
             db.session.delete(current_user)
+            flash("Successfully deleted account!", "info")
+            return redirect(url_for("login"))
         elif form.submit.data:
-            current_user.username.data = form.username.data
-            current_user.email.data = form.email.data
-            current_user.first_name.data = form.first_name.data
-            current_user.last_name.data = form.last_name.data
+            current_user.username = form.username.data
+            current_user.email = form.email.data
+            current_user.first_name = form.first_name.data
+            current_user.last_name = form.last_name.data
             if form.new_password.data:
                 current_user.set_password(form.new_password.data)
             flash("Updated settings!", "info")

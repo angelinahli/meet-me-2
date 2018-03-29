@@ -16,38 +16,60 @@ class DataReqMsg(DataRequired):
     def __init__(self):
         DataRequired.__init__(self, message="Data required")
 
-def check_valid_username(form, field):
-    un = field.data
-    length = len(un)
-    if length < 4:
-        raise ValidationError("Username must be at least 4 characters long!")
-    if length > 64:
-        raise ValidationError("Username must be less than 64 characters long!")
-    if not re.match("[^[a-zA-Z0-9_]*$]", un):
-        raise ValidationError("Username can only contain letters and numbers!")
-    user = User.query.filter_by(username=un).first()
-    if user is not None:
-        raise ValidationError("Sorry - this username is taken!")
+class CheckUsername(object):
 
-def check_valid_password(form, field):
-    pw = field.data
-    if len(pw) < 6:
-        raise ValidationError("Password must be at least 6 characters long!")
-    if not re.search("[a-z]", pw):
-        raise ValidationError("Password must contain a lower case letter!")
-    if not re.search("[A-Z]", pw):
-        raise ValidationError("Password must contain a upper case letter!")
-    if not re.search("[0-9]", pw):
-        raise ValidationError("Password must contain a number!")
-    if re.search("\s", pw):
-        raise ValidationError(
-            "Password cannot contain whitespace characters!")
+    def __init__(self, changed_name=False):
+        self.changed_name = changed_name
 
-def check_valid_email(form, field):
-    user = User.query.filter_by(email=field.data).first()
-    if user is not None:
-        raise ValidationError(
-            "There is already an account associated with this email")
+    def __call__(self, form, field): 
+        un = field.data
+        length = len(un)
+        
+        if self.changed_name and un == current_user.username:
+            return
+        if length < 4:
+            raise ValidationError("Username must be at least 4 characters long!")
+        if length > 64:
+            raise ValidationError("Username must be less than 64 characters long!")
+        if not un.isalnum():
+            raise ValidationError("Username can only contain letters and numbers!")
+        user = User.query.filter_by(username=un).first()
+        if user is not None:
+            raise ValidationError("Sorry - this username is taken!")
+
+class CheckPassword(object):
+
+    def __init__(self, changed_password=False):
+        self.changed_password = changed_password
+
+    def __call__(self, form, field):
+        pw = field.data
+        if self.changed_password and not pw:
+            return
+        if len(pw) < 6:
+            raise ValidationError("Password must be at least 6 characters long!")
+        if not re.search("[a-z]", pw):
+            raise ValidationError("Password must contain a lower case letter!")
+        if not re.search("[A-Z]", pw):
+            raise ValidationError("Password must contain a upper case letter!")
+        if not re.search("[0-9]", pw):
+            raise ValidationError("Password must contain a number!")
+        if re.search("\s", pw):
+            raise ValidationError(
+                "Password cannot contain whitespace characters!")
+
+class CheckEmail(object):
+
+    def __init__(self, changed_email=False):
+        self.changed_email = changed_email
+
+    def __call__(self, form, field):
+        if self.changed_email and field.data == current_user.email:
+            return
+        user = User.query.filter_by(email=field.data).first()
+        if user is not None:
+            raise ValidationError(
+                "There is already an account associated with this email")
 
 # form classes
 
@@ -89,13 +111,13 @@ class SignUpForm(FlaskForm):
     email = StringField("Email", validators=[
         DataReqMsg(), 
         Email(),
-        check_valid_email])
+        CheckEmail()])
     username = StringField("Username", validators=[
         DataReqMsg(), 
-        check_valid_username])
+        CheckUsername()])
     password = PasswordField("Password", validators=[
         DataReqMsg(), 
-        check_valid_password])
+        CheckPassword()])
     confirm = PasswordField("Repeat Password", validators=[
         EqualTo("password", message="Passwords must match.")])
     submit = SubmitField("Create Account")
@@ -116,17 +138,23 @@ class SignUpForm(FlaskForm):
         user.set_password(self.password.data)
         self.user = user
     
-class SettingsForm(SignUpForm):
+class SettingsForm(FlaskForm):
     pass_help_text = ("Password should be longer than 6 characters and " + 
         "include at least 1 of each: lower case letter, upper case letter " + 
         "and number")
 
     first_name = StringField("First name", validators=[DataReqMsg()])
     last_name = StringField("Last name", validators=[DataReqMsg()])
-    username = StringField("Username", validators=[DataReqMsg()])
-    email = StringField("Email", validators=[DataReqMsg(), Email()])
+    username = StringField("Username", validators=[
+        DataReqMsg(),
+        CheckUsername(changed_name=True)])
+    email = StringField("Email", validators=[
+        DataReqMsg(), 
+        Email(),
+        CheckEmail(changed_email=True)])
     password = PasswordField("Password", validators=[DataReqMsg()])
-    new_password = PasswordField("New Password")
+    new_password = PasswordField("New Password", validators=[
+        CheckPassword(changed_password=True)])
     confirm = PasswordField("Repeat", validators=[
         EqualTo("new_password", message="Passwords must match.")])
     submit = SubmitField("Save")
@@ -136,21 +164,6 @@ class SettingsForm(SignUpForm):
         pw = password.data
         if not current_user.check_password(pw):
             raise ValidationError("This password is invalid!")
-
-    def validate_new_password(self, new_password):
-        if not new_password.data:
-            return True
-        check_valid_password(self, new_password)
-
-    def validate_username(self, username):
-        if username.data == current_user.username:
-            return True
-        check_valid_username(self, username)
-
-    def validate_email(self, email):
-        if email.data == current_user.email:
-            return True
-        check_valid_email(self, email)
 
 class NewEventForm(FlaskForm):
     event_name = StringField("Event name", validators=[DataReqMsg()])

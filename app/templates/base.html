@@ -92,8 +92,10 @@ description: base template for flask app
     {% for c, m in messages %}
       {% if c == "error" %}
       <li class="list-group-item list-group-item-danger">{{m}}</li>
-      {% else %}
+      {% elif c %}
       <li class="list-group-item list-group-item-{{ c }}">{{m}}</li>
+      {% else %}
+      <li class="list-group-item list-group-item-info">{{m}}</li>
       {% endif %}
     {% endfor %}
     </ul>
