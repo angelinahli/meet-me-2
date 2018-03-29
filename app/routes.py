@@ -4,7 +4,6 @@
 from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 
-import program.users as us
 from app import app, db
 from app.forms import LoginForm, SignUpForm, SettingsForm
 from app.models import User, Event

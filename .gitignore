@@ -6,3 +6,6 @@ __pycache__/*
 # db files
 app.db
 migrations/*
+
+# venv
+venv/
