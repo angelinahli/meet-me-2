@@ -31,6 +31,15 @@ class User(db.Model, UserMixin):
         return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(
             digest, size)
 
+    def get_upcoming_events(self):
+        events = []
+        for e in self.events:
+            if e.start_time > datetime.now():
+                events.append(e)
+            if len(events) == 5:
+                break
+        return events
+
     def __repr__(self):
         return "<User #{id}: {username}>".format(
             id=self.id, 

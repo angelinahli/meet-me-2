@@ -12,8 +12,9 @@
     <p><i class="fas fa-envelope"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>
   </div>
   <div class="col-sm-8">
+    <h3>{{ user.first_name.capitalize() }}'s Upcoming Events</h3>
     <ul class="list-group">
-    {% for e in user.events %}
+    {% for e in user.get_upcoming_events() %}
       <li class="list-group-item">
         <b>{{ e.get_str_date() }}</b><br>
         <i>{{ e.get_str_start() }} - {{ e.get_str_end() }}</i><br>
