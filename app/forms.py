@@ -175,5 +175,7 @@ class NewEventForm(FlaskForm):
         DataRequired(message="Invalid datetime format.")])
     end_time = DateTimeField("End period", validators=[
         DataRequired(message="Invalid datetime format.")])
-    minutes = IntegerField("Total time needed (minutes)", validators=[DataReqMsg()])
+    minutes = IntegerField("Event time (minutes)", validators=[DataReqMsg()])
     usernames = StringField("Usernames", validators=[DataReqMsg()])
+    submit = SubmitField("Plan Event")
+

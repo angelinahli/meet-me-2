@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card mx-auto" style="width: 80%;">
+  <div class="card-body">
+    <form method="POST" action="">
+      {{ form.hidden_tag() }}
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#event_name" class="col-form-label">{{ form.event_name.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.event_name(id="event_name", class_="form-control", placeholder="Event name") }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.event_name.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#start_time" class="col-form-label">{{ form.start_time.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.start_time(id="start_time", class_="form-control", placeholder="MM/DD/YYYY") }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.start_time.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#end_time" class="col-form-label">{{ form.end_time.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.end_time(id="end_time", class_="form-control", placeholder="MM/DD/YYYY") }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.end_time.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#minutes" class="col-form-label">{{ form.minutes.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.minutes(id="minutes", class_="form-control", placeholder="Minutes") }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.minutes.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- usernames -->
+      <div class="form-row">
+        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
+          <label for="#usernames" class="col-form-label">{{ form.usernames.label }}</label>
+        </div>
+        <div class="col-sm-9 col-md-9 col-lg-10">
+          <p>{{ form.usernames(id="usernames", class_="form-control", placeholder="Usernames") }}</p>
+        </div>
+        <div class="col">
+          {% for m in form.usernames.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <p>{{ form.submit(class_="btn btn-primary") }}</p>
+
+    </form>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+{% endblock %}
+
+{% block js %}
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+$( function() {
+  $( "#start_date" ).datepicker();
+} );
+</script>
+{% endblock %}

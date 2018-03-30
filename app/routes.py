@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 
 from app import app, db
-from app.forms import LoginForm, SignUpForm, SettingsForm
+from app.forms import LoginForm, SignUpForm, SettingsForm, NewEventForm
 from app.models import User, Event
 
 @app.route("/")
@@ -88,3 +88,18 @@ def user(username):
         return redirect(url_for("index"))
     dct = {"no_title": True, "user": u}
     return render_template("user_page.html", **dct)
+
+@app.route("/schedule/", methods=["GET", "POST"])
+def schedule():
+    dct = {"title": "Schedule"}
+    return render_template("schedule.html", **dct)
+
+@app.route("/new_event/", methods=["GET", "POST"])
+def new_event():
+    dct = {"title": "New Event"}
+    form = NewEventForm()
+    dct["form"] = form
+    if form.validate_on_submit():
+        pass
+    return render_template("new_event.html", **dct)
+
