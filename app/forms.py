@@ -2,15 +2,16 @@
 # -*- coding: utf-8 -*-
 
 import re
+import wtforms as wtf
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateTimeField, IntegerField, BooleanField, SubmitField
 from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
 
 from app.models import User
 from app.program_info import info
 
 # custom validators
+# build validator for time: %I:%M:%S %p
 
 class DataReqMsg(DataRequired):
     def __init__(self):
@@ -74,10 +75,10 @@ class CheckEmail(object):
 # form classes
 
 class LoginForm(FlaskForm):    
-    username = StringField("Username", validators=[DataReqMsg()])
-    password = PasswordField("Password", validators=[DataReqMsg()])
-    remember_me = BooleanField("Remember Me")
-    submit = SubmitField("Sign In")
+    username = wtf.StringField("Username", validators=[DataReqMsg()])
+    password = wtf.PasswordField("Password", validators=[DataReqMsg()])
+    remember_me = wtf.BooleanField("Remember Me")
+    submit = wtf.SubmitField("Sign In")
 
     def __init__(self, *args, **kwargs):
         FlaskForm.__init__(self, *args, **kwargs)
@@ -106,21 +107,21 @@ class SignUpForm(FlaskForm):
         "include at least 1 of each: lower case letter, upper case letter " + 
         "and number")
 
-    first_name = StringField("First Name", validators=[DataReqMsg()])
-    last_name = StringField("Last Name", validators=[DataReqMsg()])
-    email = StringField("Email", validators=[
+    first_name = wtf.StringField("First Name", validators=[DataReqMsg()])
+    last_name = wtf.StringField("Last Name", validators=[DataReqMsg()])
+    email = wtf.StringField("Email", validators=[
         DataReqMsg(), 
         Email(),
         CheckEmail()])
-    username = StringField("Username", validators=[
+    username = wtf.StringField("Username", validators=[
         DataReqMsg(), 
         CheckUsername()])
-    password = PasswordField("Password", validators=[
+    password = wtf.PasswordField("Password", validators=[
         DataReqMsg(), 
         CheckPassword()])
-    confirm = PasswordField("Repeat Password", validators=[
+    confirm = wtf.PasswordField("Repeat Password", validators=[
         EqualTo("password", message="Passwords must match.")])
-    submit = SubmitField("Create Account")
+    submit = wtf.SubmitField("Create Account")
 
     def __init__(self, *args, **kwargs):
         FlaskForm.__init__(self, *args, **kwargs)
@@ -143,22 +144,22 @@ class SettingsForm(FlaskForm):
         "include at least 1 of each: lower case letter, upper case letter " + 
         "and number")
 
-    first_name = StringField("First name", validators=[DataReqMsg()])
-    last_name = StringField("Last name", validators=[DataReqMsg()])
-    username = StringField("Username", validators=[
+    first_name = wtf.StringField("First name", validators=[DataReqMsg()])
+    last_name = wtf.StringField("Last name", validators=[DataReqMsg()])
+    username = wtf.StringField("Username", validators=[
         DataReqMsg(),
         CheckUsername(changed_name=True)])
-    email = StringField("Email", validators=[
+    email = wtf.StringField("Email", validators=[
         DataReqMsg(), 
         Email(),
         CheckEmail(changed_email=True)])
-    password = PasswordField("Password", validators=[DataReqMsg()])
-    new_password = PasswordField("New Password", validators=[
+    password = wtf.PasswordField("Password", validators=[DataReqMsg()])
+    new_password = wtf.PasswordField("New Password", validators=[
         CheckPassword(changed_password=True)])
-    confirm = PasswordField("Repeat", validators=[
+    confirm = wtf.PasswordField("Repeat", validators=[
         EqualTo("new_password", message="Passwords must match.")])
-    submit = SubmitField("Save")
-    delete = SubmitField("Delete Account")
+    submit = wtf.SubmitField("Save")
+    delete = wtf.SubmitField("Delete Account")
 
     def validate_password(self, password):
         pw = password.data
@@ -166,16 +167,32 @@ class SettingsForm(FlaskForm):
             raise ValidationError("This password is invalid!")
 
 class SearchForm(FlaskForm):
-    query = StringField()
-    submit = SubmitField()
+    query = wtf.StringField()
+    submit = wtf.SubmitField()
 
 class NewEventForm(FlaskForm):
-    event_name = StringField("Event name", validators=[DataReqMsg()])
-    start_time = DateTimeField("Start period", validators=[
-        DataRequired(message="Invalid datetime format.")])
-    end_time = DateTimeField("End period", validators=[
-        DataRequired(message="Invalid datetime format.")])
-    minutes = IntegerField("Event time (minutes)", validators=[DataReqMsg()])
-    usernames = StringField("Usernames", validators=[DataReqMsg()])
-    submit = SubmitField("Plan Event")
-
+    event_name = wtf.StringField("Name of your event", 
+        validators=[DataReqMsg()])
+    start_date = wtf.DateField("Earliest date of event", 
+        format="%m/%d/%Y",
+        validators=[
+            DataRequired(message="Invalid date format.")
+        ])
+    end_date = wtf.DateField("Latest date of event", 
+        format="%m/%d/%Y",
+        validators=[
+            DataRequired(message="Invalid date format.")
+        ])
+    minutes = wtf.IntegerField("Time event will last (in minutes)", 
+        validators=[DataReqMsg()])
+    start_time = wtf.StringField("Approximate start time of event",
+        validators=[
+            DataRequired(message="Invalid time format.")
+        ])
+    end_time = wtf.StringField("Approximate end time of event",
+        validators=[
+            DataRequired(message="Invalid time format.")
+        ])
+    usernames = wtf.StringField("Usernames of attendees", 
+        validators=[DataReqMsg()])
+    submit = wtf.SubmitField("Plan Event")

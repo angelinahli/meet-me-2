@@ -6,89 +6,90 @@
     <form method="POST" action="">
       {{ form.hidden_tag() }}
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#event_name" class="col-form-label">{{ form.event_name.label }}</label>
-        </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.event_name(id="event_name", class_="form-control", placeholder="Event name") }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.event_name.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+      <div class="form-group">
+        <label for="#event_name" class="col-form-label">{{ form.event_name.label }}</label>
+        <p>{{ form.event_name(id="event_name", class_="form-control", placeholder="Event name") }}</p>
+        {% for m in form.event_name.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#startdatetime" class="col-form-label">{{ form.start_time.label }}</label>
-        </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <div class="form-group">
-            <div class="input-group date" id="startdatetime" data-target-input="nearest">
-              {{ form.start_time(class_="form-control datetimepicker-input", data_target="#startdatetime", placeholder="MM/DD/YYYY") }}
-              <div class="input-group-append" data-target="#startdatetime" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-              </div>
+      <div class="form-group">
+        <label for="#startdate" class="col-form-label">{{ form.start_date.label }}</label>
+        <div class="form-group">
+          <div class="input-group date" id="startdate" data-target-input="nearest">
+            {{ form.start_date(class_="form-control datetimepicker-input", data_target="#startdate", placeholder="mm/dd/yyyy") }}
+            <div class="input-group-append" data-target="#startdate" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
             </div>
           </div>
         </div>
-        <div class="col">
-          {% for m in form.start_time.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+        {% for m in form.start_date.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#enddatetime" class="col-form-label">{{ form.end_time.label }}</label>
-        </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <div class="form-group">
-            <div class="input-group date" id="enddatetime" data-target-input="nearest">
-              {{ form.end_time(class_="form-control datetimepicker-input", data_target="#enddatetime", placeholder="MM/DD/YYYY") }}
-              <div class="input-group-append" data-target="#enddatetime" data-toggle="datetimepicker">
-                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-              </div>
+      <div class="form-group">
+        <label for="#enddate" class="col-form-label">{{ form.end_date.label }}</label>
+        <div class="form-group">
+          <div class="input-group date" id="enddate" data-target-input="nearest">
+            {{ form.end_date(class_="form-control datetimepicker-input", data_target="#enddate", placeholder="mm/dd/yyyy") }}
+            <div class="input-group-append" data-target="#enddate" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="fa fa-calendar-alt"></i></div>
             </div>
           </div>
         </div>
-        <div class="col">
-          {% for m in form.end_time.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+        {% for m in form.end_date.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#minutes" class="col-form-label">{{ form.minutes.label }}</label>
+      <div class="form-group">
+        <label for="#starttime" class="col-form-label">{{ form.start_time.label }}</label>
+        <div class="form-group">
+          <div class="input-group date" id="starttime" data-target-input="nearest">
+            {{ form.start_time(class_="form-control datetimepicker-input", data_target="#starttime", placeholder="hh:mm:ss am/pm") }}
+            <div class="input-group-append" data-target="#starttime" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="far fa-clock"></i></div>
+            </div>
+          </div>
         </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.minutes(id="minutes", class_="form-control", placeholder="Minutes") }}</p>
+        {% for m in form.start_time.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="#endtime" class="col-form-label">{{ form.end_time.label }}</label>
+        <div class="form-group">
+          <div class="input-group date" id="endtime" data-target-input="nearest">
+            {{ form.end_time(input="text", class_="form-control datetimepicker-input", data_target="#endtime", placeholder="hh:mm:ss am/pm") }}
+            <div class="input-group-append" data-target="#endtime" data-toggle="datetimepicker">
+              <div class="input-group-text"><i class="far fa-clock"></i></div>
+            </div>
+          </div>
+          <small class="form-text text-muted">If your end time is earlier than your start time, we'll plan for an overnight event.</small>
         </div>
-        <div class="col">
-          {% for m in form.minutes.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+        {% for m in form.end_time.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
+      </div>
+
+      <div class="form-group">
+        <label for="#minutes" class="col-form-label">{{ form.minutes.label }}</label>
+        <p>{{ form.minutes(id="minutes", class_="form-control", placeholder="Minutes") }}</p>
+        {% for m in form.minutes.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
       <!-- usernames -->
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#usernames" class="col-form-label">{{ form.usernames.label }}</label>
-        </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.usernames(id="usernames", class_="form-control", placeholder="Usernames") }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.usernames.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+      <div class="form-group">
+        <label for="#usernames" class="col-form-label">{{ form.usernames.label }}</label>
+        <p>{{ form.usernames(id="usernames", class_="form-control", placeholder="Usernames") }}</p>
+        {% for m in form.usernames.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
       <p>{{ form.submit(class_="btn btn-primary") }}</p>
@@ -105,37 +106,5 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js"></script>
 <!-- user written scripts -->
-<script>
-  $(function() {
-    $("#startdatetime").datetimepicker({
-      icons: {
-        time: "fa fa-clock",
-        date: "fa fa-calendar",
-        up: "fa fa-arrow-up",
-        down: "fa fa-arrow-down"
-      }
-    });
-  });
-  $(function() {
-    $("#enddatetime").datetimepicker({
-      icons: {
-        time: "fa fa-clock",
-        date: "fa fa-calendar",
-        up: "fa fa-arrow-up",
-        down: "fa fa-arrow-down"
-      },
-      useCurrent: false
-    });
-  });
-  $("#startdatetime").on("change.datetimepicker",
-    function (e) {
-      $("#enddatetime").datetimepicker("minDate", e.date);
-    }
-  );
-  $("#enddatetime").on("change.datetimepicker",
-    function (e) {
-      $("#startdatetime").datetimepicker("maxDate", e.date);
-    }
-  );
-</script>
+<script src="{{ url_for('static', filename='js/newevent.js') }}"></script>
 {% endblock %}
