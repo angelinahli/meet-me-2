@@ -22,10 +22,17 @@
 
       <div class="form-row">
         <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#start_time" class="col-form-label">{{ form.start_time.label }}</label>
+          <label for="#startdatetime" class="col-form-label">{{ form.start_time.label }}</label>
         </div>
         <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.start_time(id="start_time", class_="form-control", placeholder="MM/DD/YYYY") }}</p>
+          <div class="form-group">
+            <div class="input-group date" id="startdatetime" data-target-input="nearest">
+              {{ form.start_time(class_="form-control datetimepicker-input", data_target="#startdatetime", placeholder="MM/DD/YYYY") }}
+              <div class="input-group-append" data-target="#startdatetime" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col">
           {% for m in form.start_time.errors %}
@@ -36,10 +43,17 @@
 
       <div class="form-row">
         <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#end_time" class="col-form-label">{{ form.end_time.label }}</label>
+          <label for="#enddatetime" class="col-form-label">{{ form.end_time.label }}</label>
         </div>
         <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.end_time(id="end_time", class_="form-control", placeholder="MM/DD/YYYY") }}</p>
+          <div class="form-group">
+            <div class="input-group date" id="enddatetime" data-target-input="nearest">
+              {{ form.end_time(class_="form-control datetimepicker-input", data_target="#enddatetime", placeholder="MM/DD/YYYY") }}
+              <div class="input-group-append" data-target="#enddatetime" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col">
           {% for m in form.end_time.errors %}
@@ -78,24 +92,50 @@
       </div>
 
       <p>{{ form.submit(class_="btn btn-primary") }}</p>
-
     </form>
   </div>
 </div>
-
 {% endblock %}
 
 {% block css %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/css/tempusdominus-bootstrap-4.min.css" />
 {% endblock %}
 
 {% block js %}
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/locale/af.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.0-alpha18/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- user written scripts -->
 <script>
-$( function() {
-  $( "#start_date" ).datepicker();
-} );
+  $(function() {
+    $("#startdatetime").datetimepicker({
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down"
+      }
+    });
+  });
+  $(function() {
+    $("#enddatetime").datetimepicker({
+      icons: {
+        time: "fa fa-clock",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down"
+      },
+      useCurrent: false
+    });
+  });
+  $("#startdatetime").on("change.datetimepicker",
+    function (e) {
+      $("#enddatetime").datetimepicker("minDate", e.date);
+    }
+  );
+  $("#enddatetime").on("change.datetimepicker",
+    function (e) {
+      $("#startdatetime").datetimepicker("maxDate", e.date);
+    }
+  );
 </script>
 {% endblock %}

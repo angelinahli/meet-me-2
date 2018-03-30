@@ -35,6 +35,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * create pages of search results
 * Create a schedule page where people can view a representation of their schedule
 * create form allowing users to set up events with each other
+* Allow users to add each other?
 
 ### back end
 * Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
