@@ -185,11 +185,11 @@ class NewEventForm(FlaskForm):
         ])
     minutes = wtf.IntegerField("Time event will last (in minutes)", 
         validators=[DataReqMsg()])
-    start_time = wtf.StringField("Approximate start time of event",
+    start_time = wtf.StringField("Earliest start time of event",
         validators=[
             DataRequired(message="Invalid time format.")
         ])
-    end_time = wtf.StringField("Approximate end time of event",
+    end_time = wtf.StringField("Latest end time of event",
         validators=[
             DataRequired(message="Invalid time format.")
         ])

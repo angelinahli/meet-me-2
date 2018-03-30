@@ -89,11 +89,7 @@ def user(username):
     dct = {"no_title": True, "user": u}
     return render_template("user_page.html", **dct)
 
-@app.route("/schedule/", methods=["GET", "POST"])
-def schedule():
-    dct = {"title": "Schedule"}
-    return render_template("schedule.html", **dct)
-
+@login_required
 @app.route("/new_event/", methods=["GET", "POST"])
 def new_event():
     dct = {"title": "New Event"}

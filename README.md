@@ -18,6 +18,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create user profile pages
 * update validation functions
 * figure out some other way of doing the multiple submit button stuff
+* create form allowing users to set up events with each other
 
 ## backlog
 
@@ -34,10 +35,10 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
     * create pages of search results
 * Create a schedule page where people can view a representation of their schedule
-* create form allowing users to set up events with each other
 * Allow users to add each other?
 
 ### back end
+* add validators for new event page
 * Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
 * Allow users to update their schedule with different events
 * research potential methods possible to have scheduling data.
