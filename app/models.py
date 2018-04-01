@@ -48,7 +48,10 @@ class User(db.Model, UserMixin):
     def get_events_between_dts(self, start_dt, end_dt):
         events = []
         for e in self.events:
-            if e.start_time > start_dt and e.end_dt <
+            if (e.start_time > start_dt and e.start_time < end_dt) or \
+                    (e.end_time > start_dt and e.end_time < end_dt):
+                events.append(e)
+        return events
 
     def __repr__(self):
         return "<User #{id}: {username}>".format(
