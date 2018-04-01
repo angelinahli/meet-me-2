@@ -3,15 +3,15 @@
 
 import re
 import wtforms as wtf
+from datetime import datetime
 from flask_login import current_user
 from flask_wtf import FlaskForm
-from wtforms.validators import DataRequired, EqualTo, Email, ValidationError
+from wtforms.validators import DataRequired, EqualTo, Email, Regexp, ValidationError
 
 from app.models import User
 from app.program_info import info
 
 # custom validators
-# build validator for time: %I:%M:%S %p
 
 class DataReqMsg(DataRequired):
     def __init__(self):
@@ -71,6 +71,19 @@ class CheckEmail(object):
         if user is not None:
             raise ValidationError(
                 "There is already an account associated with this email")
+
+class CheckDateTime(object):
+
+    def __init__(self, str_format, message):
+        self.str_format = str_format
+        self.message = message
+
+    def __call__(self, form, field):
+        dt = field.data
+        try:
+            new_dt = datetime.strptime(dt, self.str_format)
+        except ValueError:
+            raise ValidationError(self.message)
 
 # form classes
 
@@ -173,26 +186,24 @@ class SearchForm(FlaskForm):
 class NewEventForm(FlaskForm):
     event_name = wtf.StringField("Name of your event", 
         validators=[DataReqMsg()])
-    start_date = wtf.DateField("Earliest date of event", 
-        format="%m/%d/%Y",
+    start_date = wtf.StringField("Earliest date of event",
         validators=[
-            DataRequired(message="Invalid date format.")
+            CheckDateTime("%m/%d/%Y", message="Invalid date format")
         ])
-    end_date = wtf.DateField("Latest date of event", 
-        format="%m/%d/%Y",
+    end_date = wtf.StringField("Latest date of event",
         validators=[
-            DataRequired(message="Invalid date format.")
+            CheckDateTime("%m/%d/%Y", message="Invalid date format")
         ])
-    minutes = wtf.IntegerField("Time event will last (in minutes)", 
-        validators=[DataReqMsg()])
     start_time = wtf.StringField("Earliest start time of event",
         validators=[
-            DataRequired(message="Invalid time format.")
+            CheckDateTime("%I:%M %p", message="Invalid time format")
         ])
     end_time = wtf.StringField("Latest end time of event",
         validators=[
-            DataRequired(message="Invalid time format.")
+            CheckDateTime("%I:%M %p", message="Invalid time format")
         ])
+    minutes = wtf.IntegerField("Time event will last (in minutes)", 
+        validators=[DataReqMsg()])
     usernames = wtf.StringField("Usernames of attendees", 
         validators=[DataReqMsg()])
     submit = wtf.SubmitField("Plan Event")

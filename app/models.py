@@ -8,6 +8,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login
 
+# classes
+
 class User(db.Model, UserMixin):
     __tablename__ = "user"
     __table_args__ = {"mysql_engine": "InnoDB"}
@@ -31,6 +33,9 @@ class User(db.Model, UserMixin):
         return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(
             digest, size)
 
+    def get_full_name(self):
+        return self.first_name.capitalize() + " " + self.last_name.capitalize()
+
     def get_upcoming_events(self):
         events = []
         for e in self.events:
@@ -39,6 +44,11 @@ class User(db.Model, UserMixin):
             if len(events) == 5:
                 break
         return events
+
+    def get_events_between_dts(self, start_dt, end_dt):
+        events = []
+        for e in self.events:
+            if e.start_time > start_dt and e.end_dt <
 
     def __repr__(self):
         return "<User #{id}: {username}>".format(
@@ -87,6 +97,8 @@ class Schedule(object):
         """user: User object"""
         self.user = user
         self.events = self.user.events
+
+# functions
 
 @login.user_loader
 def load_user(id):

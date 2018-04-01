@@ -19,6 +19,10 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * update validation functions
 * figure out some other way of doing the multiple submit button stuff
 * create form allowing users to set up events with each other
+* add validators for new event page
+* Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
+* Load in and load out user dataset
+* Create a schedule page where people can view a representation of their schedule
 
 ## backlog
 
@@ -27,19 +31,17 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * update the sign up page validation text
 * (Eventually) update the front page to make it look nicer
 * (Eventually) update the spaces between input fields in the login form to make everything look more standardized
-* Load in and load out user dataset
 
 ### somewhere in between?
 * Create a search feature to search for users by username, first name, last name, email
     * if match one person, return that person
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
     * create pages of search results
-* Create a schedule page where people can view a representation of their schedule
 * Allow users to add each other?
+* Rethink the user page - what needs to be on there?
 
 ### back end
-* add validators for new event page
-* Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
+* add validator to ensure that start and end times are different
 * Allow users to update their schedule with different events
 * research potential methods possible to have scheduling data.
     * work first on ability to modify your schedule from scratch (create "templates"?)

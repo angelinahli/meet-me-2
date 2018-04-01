@@ -53,7 +53,7 @@ def logout():
 @login_required
 def settings():
     dct = {
-        "title": current_user.first_name.capitalize() + "'s Settings",
+        "title": "Settings",
         "current_user": current_user
     }
     form = SettingsForm()
@@ -86,7 +86,7 @@ def user(username):
     if not u:
         flash("This user doesn't exist!", "warning")
         return redirect(url_for("index"))
-    dct = {"no_title": True, "user": u}
+    dct = {"title": u.get_full_name(), "user": u}
     return render_template("user_page.html", **dct)
 
 @login_required
