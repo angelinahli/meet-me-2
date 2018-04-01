@@ -9,7 +9,21 @@ from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, EqualTo, Email, Regexp, ValidationError
 
 from app.models import User
-from app.program_info import info
+
+# helper functions
+
+def check_username_exists(username):
+    """ returns true if username exists """
+    return User.query.filter_by(username=username).first() != None
+
+def get_valid_username(email):
+    userstub = email.split("@")[0]
+    username = userstub
+    i = 1
+    while check_username_exists(username):
+        username = userstub + str(i)
+        i += 1
+    return username
 
 # custom validators
 
@@ -34,8 +48,7 @@ class CheckUsername(object):
             raise ValidationError("Username must be less than 64 characters long!")
         if not un.isalnum():
             raise ValidationError("Username can only contain letters and numbers!")
-        user = User.query.filter_by(username=un).first()
-        if user is not None:
+        if check_username_exists(un):
             raise ValidationError("Sorry - this username is taken!")
 
 class CheckPassword(object):
@@ -88,7 +101,7 @@ class CheckDateTime(object):
 # form classes
 
 class LoginForm(FlaskForm):    
-    username = wtf.StringField("Username", validators=[DataReqMsg()])
+    email = wtf.StringField("Email", validators=[DataReqMsg(), Email()])
     password = wtf.PasswordField("Password", validators=[DataReqMsg()])
     remember_me = wtf.BooleanField("Remember Me")
     submit = wtf.SubmitField("Sign In")
@@ -101,10 +114,10 @@ class LoginForm(FlaskForm):
         fv = FlaskForm.validate(self)
         if not fv:
             return False
-        user = User.query.filter_by(username=self.username.data).first()
+        user = User.query.filter_by(email=self.email.data).first()
         if user == None:
-            self.username.errors = list(self.username.errors)
-            self.username.errors.append("Unknown username")
+            self.email.errors = list(self.email.errors)
+            self.email.errors.append("Unknown email address")
             return False
         elif not user.check_password(self.password.data):
             self.password.errors = list(self.password.errors)
@@ -114,26 +127,20 @@ class LoginForm(FlaskForm):
         return True
 
 class SignUpForm(FlaskForm):
-    user_help_text = ("Username should be longer than 4 characters and can " + 
-        "only include letters and numbers.")
-    pass_help_text = ("Password should be longer than 6 characters and " + 
-        "include at least 1 of each: lower case letter, upper case letter " + 
-        "and number")
+    # user_help_text = ("Username should be longer than 4 characters and can " + 
+    #     "only include letters and numbers.")
+    # pass_help_text = ("Password should be longer than 6 characters and " + 
+    #     "include at least 1 of each: lower case letter, upper case letter " + 
+    #     "and number")
 
-    first_name = wtf.StringField("First Name", validators=[DataReqMsg()])
-    last_name = wtf.StringField("Last Name", validators=[DataReqMsg()])
+    name = wtf.StringField("First and Last Name", validators=[DataReqMsg()])
     email = wtf.StringField("Email", validators=[
         DataReqMsg(), 
         Email(),
         CheckEmail()])
-    username = wtf.StringField("Username", validators=[
-        DataReqMsg(), 
-        CheckUsername()])
     password = wtf.PasswordField("Password", validators=[
         DataReqMsg(), 
         CheckPassword()])
-    confirm = wtf.PasswordField("Repeat Password", validators=[
-        EqualTo("password", message="Passwords must match.")])
     submit = wtf.SubmitField("Create Account")
 
     def __init__(self, *args, **kwargs):
@@ -144,21 +151,22 @@ class SignUpForm(FlaskForm):
         fv = FlaskForm.validate(self)
         if not fv:
             return False
+        first_name = self.name.data.split()[0]
+        email = self.email.data
         user = User(
-            username=self.username.data,
-            email=self.email.data,
-            first_name=self.first_name.data,
-            last_name=self.last_name.data)
+            username=get_valid_username(email),
+            email=email,
+            first_name=first_name,
+            full_name=self.name.data)
         user.set_password(self.password.data)
         self.user = user
     
 class SettingsForm(FlaskForm):
-    pass_help_text = ("Password should be longer than 6 characters and " + 
-        "include at least 1 of each: lower case letter, upper case letter " + 
-        "and number")
+    # pass_help_text = ("Password should be longer than 6 characters and " + 
+    #     "include at least 1 of each: lower case letter, upper case letter " + 
+    #     "and number")
 
-    first_name = wtf.StringField("First name", validators=[DataReqMsg()])
-    last_name = wtf.StringField("Last name", validators=[DataReqMsg()])
+    name = wtf.StringField("First and Last name", validators=[DataReqMsg()])
     username = wtf.StringField("Username", validators=[
         DataReqMsg(),
         CheckUsername(changed_name=True)])

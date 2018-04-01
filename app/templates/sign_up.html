@@ -6,28 +6,27 @@
     <form method="POST" action="" id="sign-up">
       {{ form.hidden_tag() }}
 
-      <div class="form-row text-left">
-        <div class="form-group col-md-6">
-          <label for="fname">{{ form.first_name.label }}</label>
-          <p>{{ form.first_name(id="fname", class_="form-control", placeholder="Wendy") }}</p>
-          {% for m in form.first_name.errors %}
+      <div class="input-group input-group-lg">
+        <span class="input-group-prepend">
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-user"></i>
+          </span>
+        </span>
+        {{ form.name(class_="form-control border border-left-0", placeholder=form.name.label.text) }}
+      </div>
+      <div class="form-group">
+        {% for m in form.name.errors %}
             <p class="text-error form-text">{{ m }}</p>
           {% endfor %}
-        </div>
-        <div class="form-group col-md-6">
-          <label for="lname">{{ form.last_name.label }}</label>
-          <p>{{ form.last_name(id="lname", class_="form-control", placeholder="Wellesley") }}</p>
-          {% for m in form.last_name.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
       </div>
 
-      <div class="input-group">
+      <div class="input-group input-group-lg">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="email"><i class="fas fa-envelope"></i></span>
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-envelope"></i>
+          </span>
         </div>
-        {{ form.email(id="email", class_="form-control", aria_label="email", aria_describedby=email, placeholder="wendy@example.com") }}
+        {{ form.email(class_="form-control border border-left-0", placeholder=form.email.label.text) }}
       </div>
       <div class="form-group">
         {% for m in form.email.errors %}
@@ -35,48 +34,24 @@
         {% endfor %}
       </div>
 
-      <div class="input-group">
+      <div class="input-group input-group-lg">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="username"><i class="fas fa-user"></i></span>
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-lock"></i>
+          </span>
         </div>
-        {{ form.username(id="username", class_="form-control", aria_label="username", aria_describedby=username, placeholder="username") }}
+        {{ form.password(class_="form-control border border-left-0",  placeholder=form.password.label.text) }}
       </div>
-      <small class="form-text text-muted">{{ form.user_help_text }}</small>
-      <div class="form-group">
-        {% for m in form.username.errors %}
-          <p class="text-error form-text">{{ m }}</p>
-        {% endfor %}
-      </div>
-
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="password"><i class="fas fa-key"></i></span>
-        </div>
-        {{ form.password(id="password", class_="form-control", aria_label="password", aria_describedby=password, placeholder="password") }}
-      </div>
-      <small class="form-text text-muted">{{ form.pass_help_text }}</small>
       <div class="form-group">
         {% for m in form.password.errors %}
           <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
       </div>
 
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <span class="input-group-text" id="confirm"><i class="fas fa-key"></i></span>
-        </div>
-        {{ form.confirm(id="confirm", class_="form-control", aria_label="confirm", aria_describedby=confirm, placeholder="repeat password") }}
-      </div>
-      <div class="form-group">
-        {% for m in form.confirm.errors %}
-          <p class="text-error form-text">{{ m }}</p>
-        {% endfor %}
-      </div>
-
-      <p>{{ form.submit(class_="btn btn-primary") }}</p>
+      <p>{{ form.submit(class_="btn btn-primary btn-lg") }}</p>
     </form>
     <hr>
-    <p><a href="{{ url_for('login') }}">Login to your account</a></p>
+    <p><a href="{{ url_for('login') }}" class="btn btn-link btn-lg">Login to your account</a></p>
   </div>
 </div>
 {% endblock %}

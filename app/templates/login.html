@@ -6,25 +6,27 @@
     <form method="POST" action="" id="login">
       {{ form.hidden_tag() }}
 
-      <!-- username -->
-      <div class="input-group">
+      <div class="input-group input-group-lg">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="username"><i class="fas fa-user"></i></span>
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-envelope"></i>
+          </span>
         </div>
-        {{ form.username(id="username", class_="form-control", aria_label="Username", aria_describedby=username, placeholder="username") }}
+        {{ form.email(class_="form-control border border-left-0", placeholder=form.email.label.text) }}
       </div>
       <div class="form-group">
-        {% for m in form.username.errors %}
+        {% for m in form.email.errors %}
           <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
       </div>
 
-      <!-- password -->
-      <div class="input-group">
+      <div class="input-group input-group-lg">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="password"><i class="fas fa-key"></i></span>
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-key"></i>
+          </span>
         </div>
-        {{ form.password(id="password", class_="form-control", aria_label="Password", aria_describedby=password, placeholder="password") }}
+        {{ form.password(class_="form-control border border-left-0",  placeholder=form.password.label.text) }}
       </div>
       <div class="form-group">
         {% for m in form.password.errors %}
@@ -32,15 +34,12 @@
         {% endfor %}
       </div>
 
-      <div class="form-check form-check-inline">
-        <h6>{{ form.remember_me(class_="form-check-input", type="checkbox", id="rememberMe") }}</h6>
-        <label class="form-check-label" for="rememberMe">{{ form.remember_me.label }}</label>
-      </div>
+      {{ form.remember_me(class_="form-check-input", type="checkbox", id="rememberMe") }} {{form.remember_me.label}}
       
-      <p>{{ form.submit(class_="btn btn-primary") }}</p>
+      <p>{{ form.submit(class_="btn btn-primary btn-lg") }}</p>
     </form>
     <hr>
-    <p><a href="{{ url_for('signup') }}">Create an account</a></p>
+    <p><a href="{{ url_for('signup') }}" class="btn btn-link btn-lg">Create an account</a></p>
   </div>
 </div>
 {% endblock %}

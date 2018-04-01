@@ -1,15 +1,15 @@
-username,email,first_name,last_name,password
-angelinali,angelinali@gmail.com,angelina,li,StrongPassword123
-bjones,bjones@yahoo.com,bridget,jones,Qwertyuiop1
-harryjamespotter,hjp@hogwarts.edu,harry,potter,Exp3lliarmus
-hfinn,huckfinn@huckfinn.com,huckleberry,finn,Letmein123
-atticusisgreat,atticusf@gmail.com,atticus,finch,boB02021900
-denzel,denzel@washington.com,denzel,washington,glory1929
-l1zz13b3nn3t,lizzie@dftba.com,lizzie,bennet,Universaltruth987
-sherlockholmes,sherlock@detective.com,sherlock,holmes,3l3m3nt4ry
-jwatson,jwatson@gmail.com,john,watson,V3rysecurepassword
-vdavis,viola.davis@gmail.com,viola,davis,1Loveyou
-jackiechan,jackiechan@bing.com,jackie,chan,Hellointernet67
-devpatel123,devpatel123@gmail.com,dev,patel,123EDCxswqaz
-chiwetel,chiwetel@chiwetel.com,chiwetel,ejiofor,;Lkjhgfdsa1234567890
-lunadiego,diegoluna@yahoo.com,diego,luna,whateveR1
+username,email,first_name,full_name,password
+angelinali,angelinali@gmail.com,angelina,angelina li,StrongPassword123
+bjones,bjones@yahoo.com,bridget,bridget jones,Qwertyuiop1
+harryjamespotter,hjp@hogwarts.edu,harry,harry potter,Exp3lliarmus
+hfinn,huckfinn@huckfinn.com,huckleberry,huckleberry finn,Letmein123
+atticusisgreat,atticusf@gmail.com,atticus,atticus finch,boB02021900
+denzel,denzel@washington.com,denzel,denzel washington,glory1929
+l1zz13b3nn3t,lizzie@dftba.com,lizzie,lizzie bennet,Universaltruth987
+sherlockholmes,sherlock@detective.com,sherlock,sherlock holmes,3l3m3nt4ry
+jwatson,jwatson@gmail.com,john,john watson,V3rysecurepassword
+vdavis,viola.davis@gmail.com,viola,viola davis,1Loveyou
+jackiechan,jackiechan@bing.com,jackie,jackie chan,Hellointernet67
+devpatel123,devpatel123@gmail.com,dev,dev patel,123EDCxswqaz
+chiwetel,chiwetel@chiwetel.com,chiwetel,chiwetel ejiofor,;Lkjhgfdsa1234567890
+lunadiego,diegoluna@yahoo.com,diego,diego luna,whateveR1

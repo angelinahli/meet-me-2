@@ -6,6 +6,16 @@ html {
 }
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
+  font-family: 
+    -apple-system,
+    "Segoe UI",
+    Oxygen,
+    BlinkMacSystemFont,
+    Roboto,
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif;
 }
 .footer {
   position: absolute;

@@ -7,124 +7,104 @@
       {{ form.hidden_tag() }}
       <p class="lead">Change any of these rows to update your account</p>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#first_name" class="col-form-label">{{ form.first_name.label }}</label>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-user"></i>
+          </span>
         </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.first_name(id="first_name", class_="form-control", value=current_user.first_name) }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.first_name.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+        {{ form.name(class_="form-control border border-left-0", placeholder=form.name.label.text) }}
+      </div>
+      <div class="form-group">
+        {% for m in form.name.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#last_name" class="col-form-label">{{ form.last_name.label }}</label>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="far fa-address-card"></i>
+          </span>
         </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.last_name(id="last_name", class_="form-control", value=current_user.last_name) }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.last_name.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+        {{ form.username(class_="form-control border border-left-0", placeholder=form.username.label.text) }}
+      </div>
+      <div class="form-group">
+        {% for m in form.username.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#username" class="col-form-label">{{ form.username.label }}</label>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-envelope"></i>
+          </span>
         </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.username(id="username", class_="form-control", value=current_user.username) }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.username.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+        {{ form.email(class_="form-control border border-left-0", placeholder=form.email.label.text) }}
       </div>
-      
-      
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#email" class="col-form-label">{{ form.email.label }}</label>
-        </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.email(id="email", class_="form-control", value=current_user.email) }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.email.errors %}
-            <p class="text-error form-text">{{ m }}</p>
-          {% endfor %}
-        </div>
+      <div class="form-group">
+        {% for m in form.email.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
       </div>
 
-      <div class="text-xs-center text-sm-right">
-        <a href="#updatePassword" class="btn btn-link" data-toggle="collapse" aria-expanded="false">Change Password</a>
+      <div class="input-group input-group-lg">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white border border-right-0">
+            <i class="fas fa-key"></i>
+          </span>
+        </div>
+        {{ form.password(class_="form-control border border-left-0", placeholder=form.password.label.text) }}
       </div>
+      <div class="form-group">
+        {% for m in form.password.errors %}
+          <p class="text-error form-text">{{ m }}</p>
+        {% endfor %}
+      </div>
+
+      <p><a href="#updatePassword" data-toggle="collapse" aria-expanded="false">Change Password</a></p>
 
       <div id="updatePassword" class="collapse">
-        <div class="form-row">
-          <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-            <label for="#new_password" class="col-form-label">{{ form.new_password.label }}</label>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-white border border-right-0">
+              <i class="fas fa-lock"></i>
+            </span>
           </div>
-          <div class="col-sm-9 col-md-9 col-lg-10">
-            <p>{{ form.new_password(id="new_password", class_="form-control", placeholder="Enter your new password here") }}</p>
-            <small class="form-text text-muted">{{ form.pass_help_text }}</small>
-          </div>
-          <div class="col">
-            {% for m in form.new_password.errors %}
-              <p class="text-error form-text">{{ m }}</p>
-            {% endfor %}
-          </div>
+          {{ form.new_password(class_="form-control border border-left-0", placeholder=form.new_password.label.text) }}
+        </div>
+        <div class="form-group">
+          {% for m in form.new_password.errors %}
+            <p class="text-error form-text">{{ m }}</p>
+          {% endfor %}
         </div>
 
-        <br>
-
-        <div class="form-row">
-          <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-            <label for="#confirm" class="col-form-label">{{ form.confirm.label }}</label>
+        <div class="input-group input-group-lg">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-white border border-right-0">
+              <i class="fas fa-check-circle"></i>
+            </span>
           </div>
-          <div class="col-sm-9 col-md-9 col-lg-10">
-            <p>{{ form.confirm(id="confirm", class_="form-control", placeholder="Please re-enter your new password") }}</p>
-          </div>
-          <div class="col">
-            {% for m in form.confirm.errors %}
-              <p class="text-error form-text">{{ m }}</p>
-            {% endfor %}
-          </div>
+          {{ form.confirm(class_="form-control border border-left-0", placeholder=form.confirm.label.text) }}
         </div>
-      </div>
-
-      <div class="form-row">
-        <div class="col-sm-3 col-md-3 col-lg-2 text-xs-center text-sm-right">
-          <label for="#password" class="col-form-label">{{ form.password.label }}</label>
-        </div>
-        <div class="col-sm-9 col-md-9 col-lg-10">
-          <p>{{ form.password(id="password", class_="form-control", placeholder="Please enter your current password to continue") }}</p>
-        </div>
-        <div class="col">
-          {% for m in form.password.errors %}
+        <div class="form-group">
+          {% for m in form.confirm.errors %}
             <p class="text-error form-text">{{ m }}</p>
           {% endfor %}
         </div>
       </div>
 
-      <a href="#dangerSettings" class="btn btn-danger" data-toggle="collapse" aria-expanded="false">Danger Zone</a>
+      <p><a href="#dangerSettings" data-toggle="collapse" aria-expanded="false">Danger Zone</a></p>
 
       <div id="dangerSettings" class="collapse">
-        <p><br>Click on the link below to delete your account. Remember, this action is irreversible!<br>
-        {{ form.delete(class_="btn btn-link") }}</p>
+        <p>Click on the link below to delete your account. Remember, this action is irreversible!<p>
+        <p>{{ form.delete(class_="btn btn-danger") }}</p>
       </div>
 
       <hr>
 
-      <p>{{ form.submit(class_="btn btn-primary") }}</p>
+      <p>{{ form.submit(class_="btn btn-primary btn-lg") }}</p>
     </form>
   </div>
 </div>
