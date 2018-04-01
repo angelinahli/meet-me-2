@@ -127,12 +127,6 @@ class LoginForm(FlaskForm):
         return True
 
 class SignUpForm(FlaskForm):
-    # user_help_text = ("Username should be longer than 4 characters and can " + 
-    #     "only include letters and numbers.")
-    # pass_help_text = ("Password should be longer than 6 characters and " + 
-    #     "include at least 1 of each: lower case letter, upper case letter " + 
-    #     "and number")
-
     name = wtf.StringField("First and Last Name", validators=[DataReqMsg()])
     email = wtf.StringField("Email", validators=[
         DataReqMsg(), 
@@ -152,21 +146,18 @@ class SignUpForm(FlaskForm):
         if not fv:
             return False
         first_name = self.name.data.split()[0]
-        email = self.email.data
+        em = self.email.data
         user = User(
-            username=get_valid_username(email),
-            email=email,
+            username=get_valid_username(em),
+            email=em,
             first_name=first_name,
             full_name=self.name.data)
         user.set_password(self.password.data)
         self.user = user
+        return True
     
 class SettingsForm(FlaskForm):
-    # pass_help_text = ("Password should be longer than 6 characters and " + 
-    #     "include at least 1 of each: lower case letter, upper case letter " + 
-    #     "and number")
-
-    name = wtf.StringField("First and Last name", validators=[DataReqMsg()])
+    name = wtf.StringField("First and Last Name", validators=[DataReqMsg()])
     username = wtf.StringField("Username", validators=[
         DataReqMsg(),
         CheckUsername(changed_name=True)])

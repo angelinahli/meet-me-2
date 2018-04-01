@@ -5,8 +5,8 @@
   <div class="col-sm-4 text-left">
     <img src="{{ user.avatar(230) }}" class="rounded img-fluid">
     <p></p>
-    <h2>{{ user.get_full_name() }}</h2>
-    <p class="lead">{{ user.username }}</p>
+    <h2>{{ user.full_name.title() }}</h2>
+    <p class="lead">@{{ user.username }}</p>
     <hr>
     <h4>Contact me</h4>
     <p><i class="fas fa-envelope"></i> <a href="mailto:{{ user.email }}">{{ user.email }}</a></p>

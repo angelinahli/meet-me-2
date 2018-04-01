@@ -32,10 +32,7 @@ class User(db.Model, UserMixin):
         digest = md5(self.email.lower().encode("utf-8")).hexdigest()
         return "https://www.gravatar.com/avatar/{}?d=identicon&s={}".format(
             digest, size)
-
-    def get_full_name(self):
-        return self.first_name.capitalize() + " " + self.last_name.capitalize()
-
+    
     def get_upcoming_events(self):
         events = []
         for e in self.events:

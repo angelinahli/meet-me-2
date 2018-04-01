@@ -24,7 +24,7 @@ def login():
     dct["form"] = form
     if form.validate_on_submit():
         user = form.user
-        login_user(user, remember=form.remember_me.data)
+        login_user(user, remember=form.remember_me)
         return redirect(url_for("index"))
     return render_template("login.html", **dct)
 
@@ -37,9 +37,9 @@ def signup():
     form = SignUpForm()
     dct["form"] = form
     if form.validate_on_submit():
-        db.session.add(form.user.data)
+        db.session.add(form.user)
         db.session.commit()
-        flash("Welcome to the family, {}!!".format(form.user.first_name.data), 
+        flash("Welcome to the family, {}!!".format(form.user.first_name), 
             "info")
         return redirect(url_for("login"))
     return render_template("sign_up.html", **dct)
@@ -70,8 +70,8 @@ def settings():
         elif form.submit.data:
             current_user.username = form.username.data
             current_user.email = form.email.data
-            current_user.first_name = form.first_name.data
-            current_user.last_name = form.last_name.data
+            current_user.first_name = form.name.data.split()[0]
+            current_user.full_name = form.name.data
             if form.new_password.data:
                 current_user.set_password(form.new_password.data)
             db.session.commit()
@@ -86,7 +86,7 @@ def user(username):
     if not u:
         flash("This user doesn't exist!", "warning")
         return redirect(url_for("index"))
-    dct = {"title": u.get_full_name(), "user": u}
+    dct = {"title": u.full_name.title(), "user": u}
     return render_template("user_page.html", **dct)
 
 @login_required
