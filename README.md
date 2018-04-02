@@ -23,6 +23,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create better way of managing username and password validation (get rid of the ugly program_info module or make it better)
 * Load in and load out user dataset
 * Create a schedule page where people can view a representation of their schedule
+* (Eventually) update the spaces between input fields in the login form to make everything look more standardized
 
 ## backlog
 
@@ -30,7 +31,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * make search bar width expand to fill page
 * update the sign up page validation text
 * (Eventually) update the front page to make it look nicer
-* (Eventually) update the spaces between input fields in the login form to make everything look more standardized
+* Rethink the user page - what needs to be on there?
 
 ### somewhere in between?
 * Create a search feature to search for users by username, first name, last name, email
@@ -38,7 +39,6 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
     * create pages of search results
 * Allow users to add each other?
-* Rethink the user page - what needs to be on there?
 
 ### back end
 * add validator to ensure that start and end times are different

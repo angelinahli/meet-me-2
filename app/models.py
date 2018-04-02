@@ -36,17 +36,17 @@ class User(db.Model, UserMixin):
     def get_upcoming_events(self):
         events = []
         for e in self.events:
-            if e.start_time > datetime.now():
+            if e.start_dt > datetime.now():
                 events.append(e)
             if len(events) == 5:
                 break
         return events
 
-    def get_events_between_dts(self, start_dt, end_dt):
+    def get_events_between_dts(self, start, end):
         events = []
         for e in self.events:
-            if (e.start_time > start_dt and e.start_time < end_dt) or \
-                    (e.end_time > start_dt and e.end_time < end_dt):
+            if (e.start_dt > start and e.start_dt < end) or \
+                    (e.end_dt > start and e.end_dt < end):
                 events.append(e)
         return events
 
@@ -62,8 +62,8 @@ class Event(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     desc = db.Column(db.String(120), index=True)
-    start_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
-    end_time = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    start_dt = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    end_dt = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"), 
         onupdate="cascade")
 
@@ -72,23 +72,21 @@ class Event(db.Model):
         self.user_id = u.id
 
     def get_str_date(self):
-        return self.start_time.date().strftime("%A, %d %B %Y")
+        return self.start_dt.date().strftime("%A, %d %B %Y")
 
     def get_str_start(self):
-        return self.start_time.strftime("%I:%M%p")
+        return self.start_dt.strftime("%I:%M%p")
 
     def get_str_end(self):
-        diff_date = self.end_time.date() != self.start_time.date()
+        diff_date = self.end_dt.date() != self.start_dt.date()
         if diff_date:
-            return self.end_time.strftime("%A, %d %B %I:%M%p")
-        return self.end_time.strftime("%I:%M%p")
+            return self.end_dt.strftime("%A, %d %B %I:%M%p")
+        return self.end_dt.strftime("%I:%M%p")
 
     def __repr__(self):
         return "<Event #{id}: {desc}>".format(
             id=self.id,
             desc=self.desc,
-            start_time=self.start_time,
-            end_time=self.end_time
         )
 
 class Schedule(object):

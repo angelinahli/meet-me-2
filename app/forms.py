@@ -3,12 +3,13 @@
 
 import re
 import wtforms as wtf
-from datetime import datetime
+import datetime as dt
 from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, EqualTo, Email, Regexp, ValidationError
 
 from app.models import User
+from app.program import Scheduler
 
 # helper functions
 
@@ -92,9 +93,9 @@ class CheckDateTime(object):
         self.message = message
 
     def __call__(self, form, field):
-        dt = field.data
+        str_dt = field.data
         try:
-            new_dt = datetime.strptime(dt, self.str_format)
+            new_dt = dt.datetime.strptime(str_dt, self.str_format)
         except ValueError:
             raise ValidationError(self.message)
 
@@ -183,26 +184,74 @@ class SearchForm(FlaskForm):
     submit = wtf.SubmitField()
 
 class NewEventForm(FlaskForm):
+    date_format = "%m/%d/%Y"
+    time_format = "%I:%M %p"
+
     event_name = wtf.StringField("Name of your event", 
         validators=[DataReqMsg()])
     start_date = wtf.StringField("Earliest date of event",
         validators=[
-            CheckDateTime("%m/%d/%Y", message="Invalid date format")
+            CheckDateTime(date_format, message="Invalid date format")
         ])
     end_date = wtf.StringField("Latest date of event",
         validators=[
-            CheckDateTime("%m/%d/%Y", message="Invalid date format")
+            CheckDateTime(date_format, message="Invalid date format")
         ])
     start_time = wtf.StringField("Earliest start time of event",
         validators=[
-            CheckDateTime("%I:%M %p", message="Invalid time format")
+            CheckDateTime(time_format, message="Invalid time format")
         ])
     end_time = wtf.StringField("Latest end time of event",
         validators=[
-            CheckDateTime("%I:%M %p", message="Invalid time format")
+            CheckDateTime(time_format, message="Invalid time format")
         ])
     minutes = wtf.IntegerField("Time event will last (in minutes)", 
         validators=[DataReqMsg()])
     usernames = wtf.StringField("Usernames of attendees", 
         validators=[DataReqMsg()])
     submit = wtf.SubmitField("Plan Event")
+
+    def __init__(self, *args, **kwargs):
+        FlaskForm.__init__(self, *args, **kwargs)
+        self.sched = None
+
+    def get_date(self, date_string):
+        new_dt = dt.datetime.strptime(date_string, self.date_format)
+        return new_dt.date()
+
+    def get_time(self, time_string):
+        new_dt = dt.datetime.strptime(time_string, self.time_format)
+        return new_dt.time()
+
+    def get_users(self, un_string):
+        users = []
+        for username in un_string.split(","):
+            username = username.strip().lower()
+            user = User.query.filter_by(username=username).first()
+            if user == None:
+                raise ValidationError("User {} doesn't exist!".format(username))
+            users.append(user)
+        return users
+
+    def validate(self):
+        fv = FlaskForm.validate(self)
+        if not fv:
+            return False
+
+        try:
+            users = self.get_users(self.usernames.data)
+        except ValidationError as e:
+            self.usernames.errors = list(self.usernames.errors)
+            self.usernames.errors.append(str(e))
+            return False
+
+        self.sched = Scheduler(
+            users=users,
+            name=self.event_name.data,
+            start_date=self.get_date(self.start_date.data),
+            start_time=self.get_time(self.start_time.data),
+            end_date=self.get_date(self.end_date.data),
+            end_time=self.get_time(self.end_time.data),
+            minutes=self.minutes.data)
+        return True
+

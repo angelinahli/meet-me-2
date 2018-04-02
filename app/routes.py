@@ -96,6 +96,6 @@ def new_event():
     form = NewEventForm()
     dct["form"] = form
     if form.validate_on_submit():
-        pass
+        print(form.sched)
     return render_template("new_event.html", **dct)
 
