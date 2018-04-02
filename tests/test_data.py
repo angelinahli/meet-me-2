@@ -44,8 +44,8 @@ def add_events():
     events = get_data_from_csv(EVENTS)
     for event_dict in events:
         username = event_dict.pop("username")
-        event_dict["start_time"] = get_datetime(event_dict["start_time"])
-        event_dict["end_time"] = get_datetime(event_dict["end_time"])
+        event_dict["start_dt"] = get_datetime(event_dict["start_dt"])
+        event_dict["end_dt"] = get_datetime(event_dict["end_dt"])
         e = Event(**event_dict)
         e.set_user_id(username)
         db.session.add(e)

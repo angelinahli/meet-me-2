@@ -68,11 +68,11 @@ class Scheduler(object):
         rounded = False
         while dt <= end_dt:
             evt = Event(dt, dt + self.time_length)
-            if self._in_time_range(evt) and self._in_date_range(evt) and \
-                    evt not in times:
+            if self._in_time_range(evt) and self._in_date_range(evt):
                 times.append(evt)
             if not rounded:
-                dt = self._ceil_dt(dt)
+                new_dt = self._ceil_dt(dt)
+                dt = new_dt if dt != new_dt else dt + self.increment
                 rounded = True
             else:
                 dt = dt + self.increment
