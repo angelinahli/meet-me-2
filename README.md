@@ -52,4 +52,3 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * research potential methods possible to have scheduling data.
     * work first on ability to modify your schedule from scratch (create "templates"?)
 * rethink algorithm on finding matching free times - probably a better one out there
-* Maybe research how to make your code more modular and easy to change
