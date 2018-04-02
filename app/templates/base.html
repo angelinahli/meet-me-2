@@ -61,7 +61,12 @@ description: base template for flask app
         </form>
         
         {% else %}
-        <!-- show user control panel -->
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('new_event') }}"><i class="fas fa-plus"></i> New Event</a>
+        </li>
+
+        <!-- show user panel -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" role="button" id="accountMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             {{ current_user.username }}
