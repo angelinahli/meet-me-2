@@ -39,8 +39,11 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
     * create pages of search results
 * Allow users to add each other?
+* add ability to specify event duration by hour : min
 
 ### back end
+* create testing units for all of this
+* add validator to ensure that event is not more than 24 hours long
 * add validator to ensure that start and end times are different
 * Allow users to update their schedule with different events
 * research potential methods possible to have scheduling data.
