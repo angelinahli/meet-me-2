@@ -18,7 +18,7 @@ def check_username_exists(username):
     return User.query.filter_by(username=username).first() != None
 
 def get_valid_username(email):
-    userstub = email.split("@")[0]
+    userstub = re.sub("[\W_]+" , "", email.split("@")[0])
     username = userstub
     i = 1
     while check_username_exists(username):
