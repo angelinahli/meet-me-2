@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+  {% for date, events in scheduler.get_times_by_date().items() %}
+  <div class="col-sm-3">
+    <h5 class="text-center">{{ date }}</h5>
+    <ul class="list-group">
+        {% for event in events %}
+        <li class="list-group-item text-center">
+            {{ event.get_str_start() }} - {{ event.get_str_end() }}
+        </li>
+        {% endfor %}
+    </ul>
+    <br>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

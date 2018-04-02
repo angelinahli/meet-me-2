@@ -96,9 +96,7 @@ def new_event():
     form = NewEventForm()
     dct["form"] = form
     if form.validate_on_submit():
-        print(form.sched)
-        print(form.sched.get_times())
-    else:
-        print("whyyyyy")
+        dct["scheduler"] = form.sched
+        dct["title"] = form.sched.name
+        return render_template("new_event_times.html", **dct)
     return render_template("new_event.html", **dct)
-

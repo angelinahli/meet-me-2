@@ -7,6 +7,7 @@ from hashlib import md5
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from app import db, login
+from app.program import Event
 
 # classes
 
@@ -56,7 +57,7 @@ class User(db.Model, UserMixin):
             username=self.username
         )
 
-class Event(db.Model):
+class Event(db.Model, Event):
     __tablename__ = "event"
     __table_args__ = {"mysql_engine": "InnoDB"}
 
@@ -70,18 +71,6 @@ class Event(db.Model):
     def set_user_id(self, username):
         u = User.query.filter_by(username=username).first()
         self.user_id = u.id
-
-    def get_str_date(self):
-        return self.start_dt.date().strftime("%A, %d %B %Y")
-
-    def get_str_start(self):
-        return self.start_dt.strftime("%I:%M%p")
-
-    def get_str_end(self):
-        diff_date = self.end_dt.date() != self.start_dt.date()
-        if diff_date:
-            return self.end_dt.strftime("%A, %d %B %I:%M%p")
-        return self.end_dt.strftime("%I:%M%p")
 
     def __repr__(self):
         return "<Event #{id}: {desc}>".format(

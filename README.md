@@ -24,6 +24,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Load in and load out user dataset
 * Create a schedule page where people can view a representation of their schedule
 * (Eventually) update the spaces between input fields in the login form to make everything look more standardized
+* allow users to set up events with one another and return the possible dates of the event
 
 ## backlog
 
@@ -32,6 +33,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * update the sign up page validation text
 * (Eventually) update the front page to make it look nicer
 * Rethink the user page - what needs to be on there?
+* display the possible event times to the user better
 
 ### somewhere in between?
 * Create a search feature to search for users by username, first name, last name, email
@@ -42,6 +44,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * add ability to specify event duration by hour : min
 
 ### back end
+* allow user to create and add an event to their google calendar from the new_event page
 * create testing units for all of this
 * add validator to ensure that event is not more than 24 hours long
 * add validator to ensure that start and end times are different

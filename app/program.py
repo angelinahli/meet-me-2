@@ -11,6 +11,18 @@ class Event(object):
         self.start_dt = start
         self.end_dt = end
 
+    def get_str_date(self):
+        return self.start_dt.date().strftime("%A, %d %B %Y")
+
+    def get_str_start(self):
+        return self.start_dt.strftime("%I:%M%p")
+
+    def get_str_end(self):
+        diff_date = self.end_dt.date() != self.start_dt.date()
+        if diff_date:
+            return self.end_dt.strftime("%A, %d %B %I:%M%p")
+        return self.end_dt.strftime("%I:%M%p")
+
     def __repr__(self):
         return "Event start: {} | end: {}".format(self.start_dt, self.end_dt)
 
@@ -22,7 +34,7 @@ class Scheduler(object):
     def __init__(self, users, name, start_date, end_date, start_time, end_time, 
             minutes):
         self.users = users
-        self.name = name
+        self.name = " ".join([wd.capitalize() for wd in name.split()])
         self.time_length = timedelta(minutes=minutes)
         
         self.start_date = start_date
@@ -64,7 +76,7 @@ class Scheduler(object):
         return event.start_dt.date() >= self.start_date and \
             event.end_dt.date() <= self.end_date
 
-    def _events_conflict(evt1, evt2):
+    def _events_conflict(self, evt1, evt2):
         """
         event objects must have attributes start_dt and end_dt
         source: https://stackoverflow.com/questions/325933/
@@ -75,7 +87,7 @@ class Scheduler(object):
     def _has_conflict(self, event):
         """ returns true if any person has a conflict with this event """
         for user_evt in self.user_events:
-            if _events_conflict(user_evt, event):
+            if self._events_conflict(user_evt, event):
                 return True
         return False
 
@@ -99,10 +111,21 @@ class Scheduler(object):
                 dt = dt + self.increment
         return times
 
+    def get_times_by_date(self):
+        all_events = self.get_times()
+        events = {}
+        for event in all_events:
+            date = event.get_str_date()
+            updated_events = events.get(date, [])
+            updated_events.append(event)
+            events[date] = updated_events
+        for date in events:
+            events[date] = sorted(events[date], key=lambda evt: evt.start_dt)
+        return events
+
     def __repr__(self):
         usernames = [u.username for u in self.users]
         return "<Event: {} for users: {}>".format(self.name, ", ".join(usernames))
-
 
 if __name__ == "__main__":
     pass
