@@ -30,6 +30,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match one person, return that person
     * if match multiple people, return all results that match
 * (Eventually) update the front page to make it look nicer
+* display the possible event times to the user better
 
 ## backlog
 
@@ -37,12 +38,12 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * make search bar width expand to fill page
 * update the sign up page validation text
 * Rethink the user page - what needs to be on there?
-* display the possible event times to the user better
 
 ### somewhere in between?
 * organize searches with pages, perhaps sort search results
 * Allow users to add each other?
 * add ability to specify event duration by hour : min
+* make it easier to find users to hold events with
 
 ### back end
 * allow user to create and add an event to their google calendar from the new_event page
