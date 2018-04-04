@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import json
+from datetime import datetime, timedelta
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import or_, func
@@ -8,6 +10,7 @@ from sqlalchemy import or_, func
 from app import app, db
 from app.forms import LoginForm, SignUpForm, SettingsForm, NewEventForm
 from app.models import User, Event
+from app.program import Scheduler
 
 @app.route("/")
 @app.route("/index/")
@@ -94,10 +97,30 @@ def new_event():
     form = NewEventForm()
     dct["form"] = form
     if form.validate_on_submit():
-        dct["scheduler"] = form.sched
+        events = form.sched.get_formatted_times()
+        js_events = json.dumps(events)
+        dct["events"] = js_events
+        # dct["scheduler"] = form.sched
         dct["title"] = form.sched.name
         return render_template("new_event_times.html", **dct)
     return render_template("new_event.html", **dct)
+
+@app.route("/test_new_event/", methods=["GET", "POST"])
+def test_new_event():
+    dct = {}
+    sched = Scheduler(
+        users=User.query.all(), 
+        name="Test Event", 
+        start_date=datetime.now().date(), 
+        end_date=(datetime.now() + timedelta(days=50)).date(), 
+        start_time=datetime.now().time(), 
+        end_time=(datetime.now() + timedelta(minutes=240)).time(), 
+        minutes=120)
+    events = sched.get_formatted_times()
+    js_events = json.dumps(events)
+    dct["events"] = js_events
+    dct["title"] = sched.name
+    return render_template("new_event_times.html", **dct)
 
 @login_required
 @app.route("/search/", methods=["GET"])
@@ -111,7 +134,7 @@ def search():
             User.full_name.contains(query),
             User.email == query)
         ).all()  # maybe a bad idea idk
-        
+
         # redirect to user page if there is only one result
         if len(users) == 1:
             user = users[0]

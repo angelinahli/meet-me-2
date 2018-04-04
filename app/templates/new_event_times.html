@@ -1,19 +1,34 @@
 {% extends "base.html" %}
 
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fullcalendar/fullcalendar.min.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/fullcalendar/fullcalendar.print.css') }}">
+{% endblock %}
+
 {% block content %}
-<div class="row">
-  {% for date, events in scheduler.get_times_by_date().items() %}
-  <div class="col-sm-3">
-    <h5 class="text-center">{{ date }}</h5>
-    <ul class="list-group">
-        {% for event in events %}
-        <li class="list-group-item text-center">
-            {{ event.get_str_start() }} - {{ event.get_str_end() }}
-        </li>
-        {% endfor %}
-    </ul>
-    <br>
-  </div>
-  {% endfor %}
-</div>
+
+<div id="calendar"></div>
+
+{% endblock %}
+
+{% block js %}
+<script src="{{ url_for('static', filename='js/vendor/moment.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+<script>
+  $(function() {
+  // page is now ready, initialize the calendar...
+  $("#calendar").fullCalendar({
+    themeSystem: 'bootstrap4',
+    header: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'month,agendaWeek,agendaDay,listMonth'
+    },
+    weekNumbers: true,
+    eventLimit: true, // allow "more" link when too many events
+    events: {{ events | safe }}
+  })
+
+});
+</script>
 {% endblock %}

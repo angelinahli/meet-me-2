@@ -23,6 +23,12 @@ class Event(object):
             return self.end_dt.strftime("%A, %d %B %I:%M%p")
         return self.end_dt.strftime("%I:%M%p")
 
+    def get_format_start(self):
+        return self.start_dt.isoformat()
+
+    def get_format_end(self):
+        return self.end_dt.isoformat()
+
     def __repr__(self):
         return "Event start: {} | end: {}".format(self.start_dt, self.end_dt)
 
@@ -102,6 +108,31 @@ class Scheduler(object):
             if self._in_time_range(evt) and self._in_date_range(evt) and \
                     not self._has_conflict(evt):
                 times.append(evt)
+            
+            if not rounded:
+                new_dt = self._ceil_dt(dt)
+                dt = new_dt if dt != new_dt else dt + self.increment
+                rounded = True
+            else:
+                dt = dt + self.increment
+        return times
+
+    def get_formatted_times(self):
+        """ """
+        times = []
+        dt = self.start_dt
+        end_dt = self.end_dt
+        rounded = False
+        while dt <= end_dt:
+            evt = Event(dt, dt + self.time_length)
+            if self._in_time_range(evt) and self._in_date_range(evt) and \
+                    not self._has_conflict(evt):
+                evt_dict = {
+                    "title": self.name,
+                    "start": evt.get_format_start(), 
+                    "end": evt.get_format_end()
+                }
+                times.append(evt_dict)
             
             if not rounded:
                 new_dt = self._ceil_dt(dt)
