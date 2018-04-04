@@ -112,10 +112,11 @@ def test_new_event():
         users=User.query.all(), 
         name="Test Event", 
         start_date=datetime.now().date(), 
-        end_date=(datetime.now() + timedelta(days=50)).date(), 
+        end_date=(datetime.now() + timedelta(days=20)).date(), 
         start_time=datetime.now().time(), 
-        end_time=(datetime.now() + timedelta(minutes=240)).time(), 
-        minutes=120)
+        end_time=(datetime.now() + timedelta(minutes=200)).time(), 
+        minutes=120
+    )
     events = sched.get_formatted_times()
     js_events = json.dumps(events)
     dct["events"] = js_events

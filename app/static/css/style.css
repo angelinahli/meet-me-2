@@ -7,10 +7,10 @@ html {
 body {
   margin-bottom: 60px; /* Margin bottom by footer height */
   font-family: 
+    BlinkMacSystemFont,
     -apple-system,
     "Segoe UI",
     Oxygen,
-    BlinkMacSystemFont,
     Roboto,
     Ubuntu,
     Cantarell,
@@ -26,4 +26,9 @@ body {
 }
 .text-error {
   color: red;
+}
+
+#calendar {
+  max-width: 900px;
+  margin: 30px auto;
 }
