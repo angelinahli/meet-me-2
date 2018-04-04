@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
 
 from app import app, db
@@ -82,10 +82,7 @@ def settings():
 @app.route("/user/<username>/", methods=["GET", "POST"])
 @login_required
 def user(username):
-    u = User.query.filter_by(username=username).first()
-    if not u:
-        flash("This user doesn't exist!", "warning")
-        return redirect(url_for("index"))
+    u = User.query.filter_by(username=username).first_or_404()
     dct = {"title": u.full_name.title(), "user": u}
     return render_template("user_page.html", **dct)
 
@@ -100,3 +97,16 @@ def new_event():
         dct["title"] = form.sched.name
         return render_template("new_event_times.html", **dct)
     return render_template("new_event.html", **dct)
+
+@login_required
+@app.route("/search/", methods=["GET"])
+def search():
+    dct = {"title": "Search Results"}
+    query = request.args.get("search")
+    if query:
+        username
+        email
+        first_name
+        full_name
+    return render_template("search_results.html", **dct)
+

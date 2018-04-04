@@ -37,7 +37,7 @@ description: base template for flask app
     <div class="collapse navbar-collapse" id="siteNavbar">
 
       <ul class="nav navbar-nav mr-auto">
-        <form class="w-100">
+        <form class="w-100", action="{{ url_for('search') }}">
           <div class="input-group">
             <input type="text" class="form-control border border-right-0" placeholder="Search users" name="search" id="searchBar">
             <span class="input-group-append">
@@ -93,9 +93,10 @@ description: base template for flask app
     <ul class="list-group">
     {% for c, m in messages %}
       {% if c == "error" %}
+      <!-- no corresponding bootstrap color for 'error' -->
       <li class="list-group-item list-group-item-danger">{{m}}</li>
       {% elif c %}
-      <li class="list-group-item list-group-item-{{ c }}">{{m}}</li>
+      <li class="list-group-item list-group-item-{{c}}">{{m}}</li>
       {% else %}
       <li class="list-group-item list-group-item-info">{{m}}</li>
       {% endif %}

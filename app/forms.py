@@ -179,10 +179,6 @@ class SettingsForm(FlaskForm):
         if not current_user.check_password(pw):
             raise ValidationError("This password is invalid!")
 
-class SearchForm(FlaskForm):
-    query = wtf.StringField()
-    submit = wtf.SubmitField()
-
 class NewEventForm(FlaskForm):
     date_format = "%m/%d/%Y"
     time_format = "%I:%M %p"

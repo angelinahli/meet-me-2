@@ -25,6 +25,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create a schedule page where people can view a representation of their schedule
 * (Eventually) update the spaces between input fields in the login form to make everything look more standardized
 * allow users to set up events with one another and return the possible dates of the event
+* added custom error pages for 404 and 500 errors
 
 ## backlog
 
@@ -52,3 +53,4 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * research potential methods possible to have scheduling data.
     * work first on ability to modify your schedule from scratch (create "templates"?)
 * rethink algorithm on finding matching free times - probably a better one out there
+* send yourself an email whenever an error occurs https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-vii-error-handling
