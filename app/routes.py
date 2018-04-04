@@ -102,7 +102,7 @@ def new_event():
 @login_required
 @app.route("/search/", methods=["GET"])
 def search():
-    dct = {"title": "Search Results"}
+    dct = {"title": "Search", "show_bar": True}
     query = request.args.get("search")
     if query:
         users = User.query.filter(or_(
@@ -114,6 +114,9 @@ def search():
         if len(users) == 1:
             user = users[0]
             return redirect(url_for("user", username=user.username))
+        dct["show_bar"] = False
+        dct["title"] = "Search Results"
+        dct["count"] = len(users)
         dct["users"] = users  # probably want to implement pages in the future
     return render_template("search_results.html", **dct)
 
