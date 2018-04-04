@@ -3,6 +3,7 @@
 
 from flask import render_template, redirect, request, url_for, flash
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy import or_, func
 
 from app import app, db
 from app.forms import LoginForm, SignUpForm, SettingsForm, NewEventForm
@@ -104,9 +105,15 @@ def search():
     dct = {"title": "Search Results"}
     query = request.args.get("search")
     if query:
-        username
-        email
-        first_name
-        full_name
+        users = User.query.filter(or_(
+            User.username.contains(query),
+            User.first_name.contains(query), 
+            User.full_name.contains(query),
+            User.email == query)
+        ).all()
+        if len(users) == 1:
+            user = users[0]
+            return redirect(url_for("user", username=user.username))
+        dct["users"] = users  # probably want to implement pages in the future
     return render_template("search_results.html", **dct)
 

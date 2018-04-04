@@ -26,6 +26,9 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * (Eventually) update the spaces between input fields in the login form to make everything look more standardized
 * allow users to set up events with one another and return the possible dates of the event
 * added custom error pages for 404 and 500 errors
+* Create a search feature to search for users by username, first name, last name, email
+    * if match one person, return that person
+    * if match multiple people, return all results that match
 
 ## backlog
 
@@ -37,10 +40,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * display the possible event times to the user better
 
 ### somewhere in between?
-* Create a search feature to search for users by username, first name, last name, email
-    * if match one person, return that person
-    * if match multiple people, return all results that match, organized by section of match - first name, last name, etc. like facebook search results
-    * create pages of search results
+* organize searches with pages, perhaps sort search results
 * Allow users to add each other?
 * add ability to specify event duration by hour : min
 
