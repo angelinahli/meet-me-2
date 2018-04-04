@@ -29,13 +29,13 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * Create a search feature to search for users by username, first name, last name, email
     * if match one person, return that person
     * if match multiple people, return all results that match
+* (Eventually) update the front page to make it look nicer
 
 ## backlog
 
 ### front end
 * make search bar width expand to fill page
 * update the sign up page validation text
-* (Eventually) update the front page to make it look nicer
 * Rethink the user page - what needs to be on there?
 * display the possible event times to the user better
 

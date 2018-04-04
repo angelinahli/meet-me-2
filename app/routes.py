@@ -110,7 +110,9 @@ def search():
             User.first_name.contains(query), 
             User.full_name.contains(query),
             User.email == query)
-        ).all()
+        ).all()  # maybe a bad idea idk
+        
+        # redirect to user page if there is only one result
         if len(users) == 1:
             user = users[0]
             return redirect(url_for("user", username=user.username))
