@@ -23,7 +23,7 @@
       <i class="fas fa-th-large"></i>
     <a>
   </ul>
-  <ul class="list-group">
+  <ul class="list-group" id="list-results">
   {% for user in users %}
   <li class="list-group-item list-result">
     <div class="row">
@@ -44,7 +44,8 @@
   </ul>
 {% endif %}
 
-<!-- Mustache templates -->
+<!-- Mustache templates: wrapped in raw tag to prevent jinja2 interferance -->
+{% raw %}
 <script id="list-template" type="x-tmpl-mustache">
 <li class="list-group-item list-result">
 	<div class="row">
@@ -53,12 +54,13 @@
         class="rounded img-fluid" id="user-image"></a>
     </div>
     <div class="col-9 text-left">
-      <h3><a href="{{ username }}" id="user-full-name">{{ name }}</a></h3>
+      <h3><a href="{{ userUrl }}" id="user-full-name">{{ name }}</a></h3>
       <p class="lead" id="user-username">{{ username }}</p>
     </div>
 	</div>
 </li>
 </script>
+{% endraw %}
 {% endblock %}
 
 {% block js %}

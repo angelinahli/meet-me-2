@@ -24,23 +24,27 @@ $( document ).ready( function() {
     return results;
   }
 
-  function makeListViewItem (results) {
+  function makeListViewItem (result) {
     var template = $( "#list-template" ).html();
     Mustache.parse(template);
-    var rendered = Mustache.render(template, results);
+    var rendered = Mustache.render(template, result);
     return rendered;
   }
 
-  $( "#view-grid" ).on("click", function (event) {
+  function appendListViewItems (results) {
+    for(i=0; i < results.length; i++) {
+      $("#list-results").append( makeListViewItem(results[i]) );
+    }
+  }
+
+  $( "#view-grid, #view-list" ).on("click", function (event) {
     toggleActive(this);
     var results = getAllResultData();
-    console.log(results[0]);
-    console.log(makeListViewItem(results[0]));
-  });
-
-  $( "#view-list" ).on("click", function (event) {
-    toggleActive(this);
-		var results = getAllResultData();
+    $("#list-results").empty();
+    if ( $(this).attr("id") == "view-grid" ) {
+    } else if ( $(this).attr("id") == "view-list" ) {
+      appendListViewItems (results);
+    }
   });
 
 });
