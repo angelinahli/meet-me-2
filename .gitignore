@@ -9,3 +9,6 @@ migrations/*
 
 # venv
 venv/
+
+# vim files
+*.swp
