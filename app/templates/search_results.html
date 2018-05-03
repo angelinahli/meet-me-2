@@ -16,32 +16,26 @@
   <h2>{{ count }} users found</h2>
   <br>
   <ul class="nav nav-tabs nav-fill">
-    <a class="nav-item nav-link active" id="view-list" title="list view">
-      <i class="fas fa-list"></i>
-    </a>
-    <a class="nav-item nav-link" id="view-grid" title="grid view">
+    <a class="nav-item nav-link active" id="view-grid" title="grid view">
       <i class="fas fa-th-large"></i>
     <a>
+    <a class="nav-item nav-link" id="view-list" title="list view">
+      <i class="fas fa-list"></i>
+    </a>
   </ul>
-  <ul class="list-group" id="list-results">
-  {% for user in users %}
-  <li class="list-group-item list-result">
+  <div class="container-fluid" id="list-results">
+    <br>
     <div class="row">
-      <div class="col-3">
-        <a href="{{ url_for('user', username=user.username) }}"><img src="{{
-          user.avatar(120) }}" class="rounded img-fluid" id="user-image"></a>
-      </div>
-      <div class="col-9 text-left">
-        <h3>
-          <a href="{{ url_for('user', username=user.username) }}"
-            id="user-full-name">{{ user.full_name.title() }}</a>
-        </h3>
-        <p class="lead" id="user-username">@{{ user.username }}</p>
-      </div>
+    {% for user in users %}
+    <div class="col-3 text-center list-result">
+      <a href="{{ url_for('user', username=user.username) }}"><img src="{{
+        user.avatar(120) }}" class="rounded img-fluid" id="user-image"></a>
+      <h3><a href="{{ url_for('user', username=user.username) }}" id="user-full-name">{{ user.full_name.title() }}</a></h3>
+      <p class="lead" id="user-username">@{{ user.username }}</p>
     </div>
-  </li>
-  {% endfor %}
-  </ul>
+    {% endfor %}
+    </div>
+  </div>
 {% endif %}
 
 <!-- Mustache templates: wrapped in raw tag to prevent jinja2 interferance -->
@@ -59,6 +53,15 @@
     </div>
 	</div>
 </li>
+</script>
+
+<script id="grid-template" type="x-tmpl-mustache">
+<div class="col-3 text-center list-result">
+  <a href="{{ userUrl }}"><img src="{{ imageUrl }}" class="rounded img-fluid"
+    id="user-image"></a>
+  <h3><a href="{{ userUrl }}" id="user-full-name">{{ name }}</a></h3>
+  <p class="lead" id="user-username">{{ username }}</p>
+</div>
 </script>
 {% endraw %}
 {% endblock %}

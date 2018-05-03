@@ -24,17 +24,30 @@ $( document ).ready( function() {
     return results;
   }
 
-  function makeListViewItem (result) {
-    var template = $( "#list-template" ).html();
+  function renderTemplate(templateSelector, data) {
+    var template = $( templateSelector ).html();
     Mustache.parse(template);
-    var rendered = Mustache.render(template, result);
+    var rendered = Mustache.render(template, data);
     return rendered;
   }
 
-  function appendListViewItems (results) {
+  function makeListViewItems(results) {
+    var listViewItems = $("<ul></ul>")
+      .addClass("list-group");
     for(i=0; i < results.length; i++) {
-      $("#list-results").append( makeListViewItem(results[i]) );
+      $(listViewItems).append(renderTemplate("#list-template", results[i]));
     }
+    $("#list-results").append(listViewItems);
+  }
+
+  function makeGridViewItems(results) {
+    $("#list-results").append( $("<br>"));
+    var gridViewItems = $("<div></div>")
+      .addClass("row");
+    for(i=0; i < results.length; i++) {
+      $(gridViewItems).append(renderTemplate("#grid-template", results[i]));
+    }
+    $("#list-results").append(gridViewItems);
   }
 
   $( "#view-grid, #view-list" ).on("click", function (event) {
@@ -42,8 +55,9 @@ $( document ).ready( function() {
     var results = getAllResultData();
     $("#list-results").empty();
     if ( $(this).attr("id") == "view-grid" ) {
+      makeGridViewItems(results);
     } else if ( $(this).attr("id") == "view-list" ) {
-      appendListViewItems (results);
+      makeListViewItems(results);
     }
   });
 

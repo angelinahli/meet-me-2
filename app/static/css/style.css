@@ -32,3 +32,6 @@ body {
   max-width: 900px;
   margin: 30px auto;
 }
+#list-results {
+  padding: 0px;
+}
