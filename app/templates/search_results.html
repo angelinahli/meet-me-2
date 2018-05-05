@@ -14,6 +14,7 @@
   </form>
 {% else %}
   <h2>{{ count }} users found</h2>
+  {% if count %}
   <br>
   <ul class="nav nav-tabs nav-fill">
     <a class="nav-item nav-link active" id="view-grid" title="grid view">
@@ -36,6 +37,7 @@
     {% endfor %}
     </div>
   </div>
+  {% endif %}
 {% endif %}
 
 <!-- Mustache templates: wrapped in raw tag to prevent jinja2 interferance -->
