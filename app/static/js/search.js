@@ -32,8 +32,10 @@ $( document ).ready( function() {
   }
 
   function makeListViewItems(results) {
-    var listViewItems = $("<ul></ul>")
-      .addClass("list-group");
+    /** Start with the assumption that #list-results has been emptied **/
+    $("#list-results").append(renderTemplate("#list-wrapper-template", {}));
+    var listViewItems = $("#list-results")
+      .find(".list-group");
     for(i=0; i < results.length; i++) {
       $(listViewItems).append(renderTemplate("#list-template", results[i]));
     }
@@ -41,9 +43,9 @@ $( document ).ready( function() {
   }
 
   function makeGridViewItems(results) {
-    $("#list-results").append( $("<br>"));
-    var gridViewItems = $("<div></div>")
-      .addClass("row");
+    $("#list-results").append(renderTemplate("#grid-wrapper-template", {}));
+    var gridViewItems = $("#list-results")
+      .find(".row");
     for(i=0; i < results.length; i++) {
       $(gridViewItems).append(renderTemplate("#grid-template", results[i]));
     }
