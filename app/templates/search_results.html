@@ -27,7 +27,7 @@
     <br>
     <div class="row">
     {% for user in users %}
-    <div class="col-3 text-center list-result">
+    <div class="col-lg-3 col-md-3 col-sm-4 text-center list-result">
       <a href="{{ url_for('user', username=user.username) }}"><img src="{{
         user.avatar(120) }}" class="rounded img-fluid" id="user-image"></a>
       <h3><a href="{{ url_for('user', username=user.username) }}" id="user-full-name">{{ user.full_name.title() }}</a></h3>
@@ -67,7 +67,7 @@
 </script>
 
 <script id="grid-template" type="x-tmpl-mustache">
-<div class="col-3 text-center list-result">
+<div class="col-lg-3 col-md-3 col-sm-4 text-center list-result">
   <a href="{{ userUrl }}"><img src="{{ imageUrl }}" class="rounded img-fluid"
     id="user-image"></a>
   <h3><a href="{{ userUrl }}" id="user-full-name">{{ name }}</a></h3>
