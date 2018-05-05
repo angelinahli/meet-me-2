@@ -99,6 +99,18 @@ class CheckDateTime(object):
         except ValueError:
             raise ValidationError(self.message)
 
+class CheckEventLength(object):
+
+    def __init__(self, message=None):
+        self.message = message
+
+    def __call__(self, form, field):
+        if field.data < 1 or field.data >= 1440:
+            if self.message is None:
+                msg = u"End time must be between 1 and 1439 minutes long."
+                self.message = field.gettext(msg)
+            raise ValidationError(self.message)
+
 # form classes
 
 class LoginForm(FlaskForm):    
@@ -202,7 +214,10 @@ class NewEventForm(FlaskForm):
             CheckDateTime(time_format, message="Invalid time format")
         ])
     minutes = wtf.IntegerField("Time event will last (in minutes)", 
-        validators=[DataReqMsg()])
+        validators=[
+            DataReqMsg(),
+            CheckEventLength()
+        ])
     usernames = wtf.StringField("Usernames of attendees", 
         validators=[DataReqMsg()])
     submit = wtf.SubmitField("Plan Event")
