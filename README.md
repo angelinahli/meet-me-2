@@ -31,6 +31,7 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
     * if match multiple people, return all results that match
 * (Eventually) update the front page to make it look nicer
 * display the possible event times to the user better
+* made search results toggleable
 
 ## backlog
 
@@ -38,6 +39,8 @@ I am incredibly indebted to [Miguel Grinberg](https://blog.miguelgrinberg.com/po
 * make search bar width expand to fill page
 * update the sign up page validation text
 * Rethink the user page - what needs to be on there?
+* allow individuals to select friends when creating events via a dynamic search
+  thing
 
 ### somewhere in between?
 * organize searches with pages, perhaps sort search results
