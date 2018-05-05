@@ -1,3 +1,4 @@
+/* shelved until I learn a bit more */
 $( document ).ready( function() {
 
   var userSearchUrl = "/search_invitees/";
