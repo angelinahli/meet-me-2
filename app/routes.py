@@ -3,7 +3,7 @@
 
 import json
 from datetime import datetime, timedelta
-from flask import render_template, redirect, request, url_for, flash
+from flask import render_template, redirect, request, url_for, flash, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from sqlalchemy import or_, func
 
@@ -131,7 +131,6 @@ def search():
     if query:
         users = User.query.filter(or_(
             User.username.contains(query),
-            User.first_name.contains(query), 
             User.full_name.contains(query),
             User.email == query)
         ).all()  # maybe a bad idea idk
@@ -146,3 +145,13 @@ def search():
         dct["users"] = users  # probably want to implement pages in the future
     return render_template("search_results.html", **dct)
 
+@app.route("/search_invitees/", methods=["GET", "POST"])
+def search_invitees():
+    query = request.args.get("query")
+    users = User.query.filter(or_(
+        User.username.contains(query),
+        User.full_name.contains(query),
+        User.email == query)
+    ).limit(5)
+    # need to fix json serialization
+    return jsonify(users)
