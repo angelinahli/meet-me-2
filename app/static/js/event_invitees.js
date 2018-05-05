@@ -12,7 +12,7 @@ $( document ).ready( function() {
   $( "#search-usernames" )
     .on("input", function (event) {
       var query = $(this).val();
-      $.post(
+      $.get(
         userSearchUrl,
         {"query": query},
         function (data) {

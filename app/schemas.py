@@ -3,10 +3,9 @@
 
 from marshmallow import Schema, fields
 
-class UserSchema(Serializer):
+class UserSchema(Schema):
     id = fields.Integer()
     username = fields.Str()
     email = fields.Email()
     first_name = fields.Str()
     full_name = fields.Str()
-    events = fields.List()

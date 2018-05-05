@@ -10,6 +10,7 @@ from sqlalchemy import or_, func
 from app import app, db
 from app.forms import LoginForm, SignUpForm, SettingsForm, NewEventForm
 from app.models import User, Event
+from app.schemas import UserSchema
 from app.program import Scheduler
 
 @app.route("/")
@@ -153,5 +154,6 @@ def search_invitees():
         User.full_name.contains(query),
         User.email == query)
     ).limit(5)
-    # need to fix json serialization
-    return jsonify(users)
+    # is there a better way to do it?
+    json_results = [UserSchema().dumps(user) for user in users]
+    return jsonify(json_results)
