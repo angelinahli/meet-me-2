@@ -203,7 +203,7 @@ class NewEventForm(FlaskForm):
         ])
     minutes = wtf.IntegerField("Time event will last (in minutes)", 
         validators=[DataReqMsg()])
-    usernames = wtf.StringField("Usernames of attendees", 
+    usernames = wtf.HiddenField("Usernames of attendees", 
         validators=[DataReqMsg()])
     submit = wtf.SubmitField("Plan Event")
 

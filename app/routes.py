@@ -155,5 +155,5 @@ def search_invitees():
         User.email == query)
     ).limit(5)
     # is there a better way to do it?
-    json_results = [UserSchema().dumps(user) for user in users]
-    return jsonify(json_results)
+    results = [user.username for user in users]
+    return jsonify(results)

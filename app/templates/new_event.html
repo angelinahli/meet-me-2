@@ -93,9 +93,13 @@
       </div>
 
       <!-- usernames -->
-      <div class="form-group">
-        <p>{{ form.usernames(class_="form-control text-center",
-          id="search-usernames", placeholder=form.usernames.label.text) }}</p>
+      <div class="input-group">
+        <input type="text" class="form-control text-center" 
+          id="search-usernames" 
+          placeholder={{form.usernames.label.text }}></input>
+        <p>{{ form.usernames(type="hidden", id="return-usernames") }}</p>
+      </div>
+      <div class="form-group username-group">
         {% for m in form.usernames.errors %}
           <p class="text-error form-text">{{ m }}</p>
         {% endfor %}
@@ -109,7 +113,7 @@
 <!-- Mustache templates: wrapped in raw tag to prevent jinja2 interferance -->
 {% raw %}
 <script id="invitee-template" type="x-tmpl-mustache">
-<button type="button" class="btn btn-primary btn-sm btn-invitee">
+<button type="button" class="btn btn-link btn-invitee">
   {{ name }} <i class="far fa-times-circle invitee-cancel"></i>
 </button>
 </script>
