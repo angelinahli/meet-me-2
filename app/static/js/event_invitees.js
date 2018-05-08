@@ -22,8 +22,10 @@ $( document ).ready( function() {
     var valid = data.valid;
     usernameGroup.empty();
     $(".btn-add-invitee").remove();
+    $("#search-usernames").removeClass("border border-right-0");
     if (valid) {
       var button = renderTemplate("#add-invitee-template", {});
+      $("#search-usernames").addClass("border border-right-0");
       usersInputGroup.append(button);
     } else {
       var msgText = "This username is not valid";
