@@ -4,7 +4,7 @@ $( document ).ready( function() {
   var userSearchUrl = "/search_invitees/";
   var verifyUserUrl = "/is_valid_user/";
   var usersInputGroup = $("#search-usernames").closest(".input-group");
-  var usernameGroup = usersInputGroup.next(".username-group")
+  var addedUsers = []; /* is this okay :/ */
   
   function renderTemplate(templateSelector, data) {
     var template = $( templateSelector ).html();
@@ -15,22 +15,45 @@ $( document ).ready( function() {
 
   function addErrorMessage(message) {
     var errorMessage = renderTemplate("#error-template", {"message": message});
-    usernameGroup.append(errorMessage);
+    $("#username-group").append(errorMessage);
+  }
+  
+  function makeReturnValue() {
+    $("#return-usernames").val(addedUsers.join(","));
   }
 
-  function addUserIfValid(data) {
-    var valid = data.valid;
-    usernameGroup.empty();
+  function addUser(username) {
+    addedUsers.push(username);
+    makeReturnValue();
+  }
+
+  function removeUser(username) {
+    /* from stackoverflow */
+    addedUsers.splice( $.inArray(username, addedUsers), 1 );
+    makeReturnValue();
+  }
+
+  function clearSearchUsernames(clearVal) {
+    if (clearVal) {
+      $("#search-usernames").val("");
+    }
+    $(".text-error").remove();
     $(".btn-add-invitee").remove();
     $("#search-usernames").removeClass("border border-right-0");
-    if (valid) {
+  }
+
+  function addUserIfValid(username, data) {
+    var valid = data.valid;
+    var added = $.inArray(username, addedUsers) != -1;
+    /* clear any previous successful username attempts */
+    clearSearchUsernames(false);
+    if (added) {
+      addErrorMessage("User has already been added!");
+    } else if (valid) {
+      /* if valid and not added */
       var button = renderTemplate("#add-invitee-template", {});
       $("#search-usernames").addClass("border border-right-0");
       usersInputGroup.append(button);
-    } else {
-      var msgText = "This username is not valid";
-      var errorMsg = renderTemplate("#error-template", {"message": msgText});
-      usernameGroup.append(errorMsg);
     }
   }
 
@@ -48,11 +71,19 @@ $( document ).ready( function() {
       .addClass("far");
   });
 
-  $(".btn-add-invitee").on("click", function() {
+  $(document).on("click", ".invitee-cancel", function() {
+    var btn = $(this).closest(".btn-invitee");
+    var username = btn.find(".btn-username").val();
+    btn.remove();
+    removeUser(username);
+  })
+
+  $(document).on("click", ".btn-add-invitee", function() {
     var username = $("#search-usernames").val();
     var userButton = renderTemplate("#invitee-template", {"name": username});
-    usernameGroup.append(userButton);
-    $("#search-usernames").removeAttr("value");
+    $("#username-group").append(userButton);
+    addUser(username);
+    clearSearchUsernames(true);
   });
 
   $("#search-usernames").on("input", function (event) {
@@ -60,8 +91,9 @@ $( document ).ready( function() {
     $.post(
       verifyUserUrl,
       {"username": username},
-      addUserIfValid
-    );
+      function(data) {
+        addUserIfValid(username, data);
+      });
   });
 
 });
