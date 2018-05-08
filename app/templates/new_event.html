@@ -97,8 +97,9 @@
         <input type="text" class="form-control text-center" 
           id="search-usernames" 
           placeholder={{form.usernames.label.text }}></input>
-        <p>{{ form.usernames(type="hidden", id="return-usernames") }}</p>
       </div>
+      <!-- this is pretty hacky, is there a better way? -->
+      <p>{{ form.usernames(type="hidden", id="return-usernames") }}</p>
       <div class="form-group username-group">
         {% for m in form.usernames.errors %}
           <p class="text-error form-text">{{ m }}</p>
@@ -116,6 +117,18 @@
 <button type="button" class="btn btn-link btn-invitee">
   {{ name }} <i class="far fa-times-circle invitee-cancel"></i>
 </button>
+</script>
+
+<script id="add-invitee-template" type="x-tmpl-mustache">
+<div class="input-group-append">
+  <button type="button" class="btn btn-success btn-add-invitee">
+    Add
+  </button>
+</div>
+</script>
+
+<script id="error-template" type="x-tmpl-mustache">
+<p class="text-error form-text">{{ message }}</p>
 </script>
 {% endraw %}
 {% endblock %}

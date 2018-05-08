@@ -146,14 +146,19 @@ def search():
         dct["users"] = users  # probably want to implement pages in the future
     return render_template("search_results.html", **dct)
 
-@app.route("/search_invitees/", methods=["GET", "POST"])
+@app.route("/search_invitees/", methods=["POST"])
 def search_invitees():
-    query = request.args.get("query")
+    query = request.form.get("query")
     users = User.query.filter(or_(
         User.username.contains(query),
         User.full_name.contains(query),
         User.email == query)
     ).limit(5)
-    # is there a better way to do it?
     results = [user.username for user in users]
     return jsonify(results)
+
+@app.route("/is_valid_user/", methods=["POST"])
+def is_valid_user():
+    username = request.form.get("username")
+    valid = User.query.filter_by(username=username).first() != None
+    return jsonify({"valid": valid})
